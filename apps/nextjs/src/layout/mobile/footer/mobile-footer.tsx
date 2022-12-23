@@ -6,11 +6,11 @@ import {
   IconListCheck,
 } from "@tabler/icons";
 import { MobileFooterTabLink } from "./tab/mobile-footer-tab-link";
+import { MobileFooterTabMoreButton } from "./tab/mobile-footer-tab-more-button";
 import {
   MobileFooterMoreTabs,
-  MobileFooterTabMoreButton,
   moreFooterTabOptions,
-} from "./tab/mobile-footer-tab-more-button";
+} from "./tab/more-drawer/mobile-footer-more-drawer";
 
 interface MobileFooterProps {
   activeTab: MobileFooterTabs | MobileFooterMoreTabs;
@@ -18,10 +18,10 @@ interface MobileFooterProps {
 
 export const MobileFooter = ({ activeTab }: MobileFooterProps) => {
   console.log(activeTab);
-  const isDefaultTabActive = initialTabs.some((x) => x.id === activeTab);
+  const isDefaultTabActive = initialFooterTabs.some((x) => x.id === activeTab);
   const displayedTabs = isDefaultTabActive
-    ? initialTabs
-    : initialTabs.slice(0, 3);
+    ? initialFooterTabs
+    : initialFooterTabs.slice(0, 3);
 
   const otherActiveTab = moreFooterTabOptions.find((x) => x.id === activeTab);
 
@@ -40,22 +40,35 @@ export const MobileFooter = ({ activeTab }: MobileFooterProps) => {
         {otherActiveTab ? (
           <MobileFooterTabLink {...otherActiveTab} active />
         ) : null}
-        <MobileFooterTabMoreButton />
+        <MobileFooterTabMoreButton activeTab={activeTab} />
       </Group>
     </Footer>
   );
 };
 
-const initialTabs = [
-  { id: "home", label: "HOME", icon: IconHome, href: "/" },
-  { id: "plan", label: "PLAN", icon: IconCalendarEvent, href: "/plans" },
-  { id: "task", label: "AUFGABEN", icon: IconListCheck, href: "/tasks" },
+export const initialFooterTabs = [
+  { id: "home", label: "Home", icon: IconHome, href: "/", color: "teal" },
+  {
+    id: "plan",
+    label: "Plan",
+    icon: IconCalendarEvent,
+    href: "/plans",
+    color: "teal",
+  },
+  {
+    id: "task",
+    label: "Aufgaben",
+    icon: IconListCheck,
+    href: "/tasks",
+    color: "teal",
+  },
   {
     id: "assessment",
-    label: "BEWERTUNGEN",
+    label: "Bewertungen",
     icon: IconClipboardCheck,
     href: "/assessments",
+    color: "teal",
   },
 ] as const;
 
-export type MobileFooterTabs = typeof initialTabs[number]["id"];
+export type MobileFooterTabs = typeof initialFooterTabs[number]["id"];

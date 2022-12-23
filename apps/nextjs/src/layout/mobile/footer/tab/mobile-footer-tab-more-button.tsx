@@ -1,22 +1,32 @@
 import { UnstyledButton } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Icon123, IconDots } from "@tabler/icons";
+import { IconDots } from "@tabler/icons";
+import { MobileFooterTabs } from "../mobile-footer";
 import { MobileFooterTabBase } from "./mobile-footer-tab-base";
+import {
+  MobileFooterMoreDrawer,
+  MobileFooterMoreTabs,
+} from "./more-drawer/mobile-footer-more-drawer";
 
-export const MobileFooterTabMoreButton = () => {
+interface MobileFooterTabMoreButtonProps {
+  activeTab: MobileFooterTabs | MobileFooterMoreTabs;
+}
+
+export const MobileFooterTabMoreButton = ({
+  activeTab,
+}: MobileFooterTabMoreButtonProps) => {
   const [drawerOpened, drawer] = useDisclosure(false);
 
   return (
     <>
       <UnstyledButton onClick={drawer.open}>
-        <MobileFooterTabBase label="MEHR" icon={IconDots} />
+        <MobileFooterTabBase label="Mehr" icon={IconDots} />
       </UnstyledButton>
+      <MobileFooterMoreDrawer
+        opened={drawerOpened}
+        closeDrawer={drawer.close}
+        activeTab={activeTab}
+      />
     </>
   );
 };
-
-export const moreFooterTabOptions = [
-  { id: "example", label: "EXAMPLE", icon: Icon123, href: "/examples" },
-] as const;
-
-export type MobileFooterMoreTabs = typeof moreFooterTabOptions[number]["id"];
