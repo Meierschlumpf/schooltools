@@ -82,6 +82,7 @@ importers:
       '@emotion/react': ^11.9.0
       '@emotion/server': ^11.4.0
       '@mantine/core': ^5.9.5
+      '@mantine/dates': ^5.9.5
       '@mantine/hooks': ^5.9.5
       '@mantine/modals': ^5.9.5
       '@mantine/next': ^5.9.5
@@ -115,6 +116,7 @@ importers:
       '@emotion/react': 11.10.5_fan5qbzahqtxlm5dzefqlqx5ia
       '@emotion/server': 11.10.0
       '@mantine/core': 5.9.5_sfbpcjqrisodz4trxaw2e3ku4y
+      '@mantine/dates': 5.9.5_dbf6n6w3qmsbys2nzjqz2wmq7u
       '@mantine/hooks': 5.9.5_react@18.2.0
       '@mantine/modals': 5.9.5_h4zmljtfubfbwzvuu4gizrlimy
       '@mantine/next': 5.9.5_odc7g525exkk54a4anpochw4ci
@@ -2132,6 +2134,20 @@ packages:
       - '@types/react'
     dev: false
 
+  /@mantine/dates/5.9.5_dbf6n6w3qmsbys2nzjqz2wmq7u:
+    resolution: {integrity: sha512-lxjkoZ3DXIrJ/81X6FMd14PNoLE5qFm/cJumba0wy1OkhFjj2Ua9qEWOQs3lnjnrj9ocxCAy5DkRAoGdNfUNtQ==}
+    peerDependencies:
+      '@mantine/core': 5.9.5
+      '@mantine/hooks': 5.9.5
+      dayjs: '>=1.0.0'
+      react: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 5.9.5_sfbpcjqrisodz4trxaw2e3ku4y
+      '@mantine/hooks': 5.9.5_react@18.2.0
+      '@mantine/utils': 5.9.5_react@18.2.0
+      react: 18.2.0
+    dev: false
+
   /@mantine/hooks/5.9.5_react@18.2.0:
     resolution: {integrity: sha512-6u0oj5zFYAP8bY+iW5Y5HEFS6tZmvJN5KwNPH+F2Omw61hN7shehHED7Jbe5zkxcggFvqmkA/6FMk+VYfovmkA==}
     peerDependencies:
@@ -2975,7 +2991,7 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@tanstack/react-query': 4.20.4_slnhbjkuf3cktqrwdgz34rrasq
+      '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.5.0_@trpc+server@10.5.0
       '@trpc/server': 10.5.0
       react: 18.2.0
