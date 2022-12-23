@@ -6,21 +6,32 @@ import {
   ScrollArea,
   Stack,
   Title,
-  useMantineTheme,
 } from "@mantine/core";
-import { IconArrowLeft, IconDots } from "@tabler/icons";
+import { IconArrowLeft } from "@tabler/icons";
 import { useState } from "react";
+import { NotificationItem } from "../../../../../components/common/notifications/notification-item";
 
 interface MobileHeaderNotificationDrawerProps {
   opened: boolean;
   closeDrawer: () => void;
 }
 
+const exampleNotification = {
+  id: "1",
+  user: {
+    id: "1",
+    username: "Meierschlumpf",
+    profileSrc: "https://avatars.githubusercontent.com/u/63781622?s=40&v=4",
+  },
+  createdAt: new Date(),
+  content: "Hello world",
+  isRead: true,
+};
+
 export const MobileHeaderNotificationDrawer = ({
   opened,
   closeDrawer,
 }: MobileHeaderNotificationDrawerProps) => {
-  const { spacing } = useMantineTheme();
   const [tab, setTab] = useState("all");
 
   return (
@@ -60,15 +71,17 @@ export const MobileHeaderNotificationDrawer = ({
             </Chip>
           </Chip.Group>
         </Group>
-        <ScrollArea.Autosize
-          maxHeight="calc(100vh - var(--mantine-footer-height) - 96px)"
-          styles={{
-            viewport: {
-              paddingLeft: spacing.md,
-              paddingRight: spacing.md,
-            },
-          }}
-        ></ScrollArea.Autosize>
+        <ScrollArea.Autosize maxHeight="calc(100vh - var(--mantine-footer-height) - 96px)">
+          <Stack spacing={4}>
+            <NotificationItem notification={exampleNotification} />
+            <NotificationItem notification={exampleNotification} />
+            <NotificationItem notification={exampleNotification} />
+            <NotificationItem notification={exampleNotification} />
+            <NotificationItem notification={exampleNotification} />
+            <NotificationItem notification={exampleNotification} />
+            <NotificationItem notification={exampleNotification} />
+          </Stack>
+        </ScrollArea.Autosize>
       </Stack>
     </Drawer>
   );

@@ -1,5 +1,4 @@
-import { ActionIcon, Avatar, Group, Indicator } from "@mantine/core";
-import { IconBell } from "@tabler/icons";
+import { ActionIcon, Avatar, Group } from "@mantine/core";
 import { MobileHeaderNotificationButton } from "./mobile-header-notification-button";
 
 export const MobileHeaderActions = () => {
@@ -9,7 +8,7 @@ export const MobileHeaderActions = () => {
       <ActionIcon size="lg" radius="xl">
         <Avatar
           size={24}
-          radius={24}
+          radius={12}
           src="https://avatars.githubusercontent.com/u/63781622?s=40&v=4"
         />
       </ActionIcon>
