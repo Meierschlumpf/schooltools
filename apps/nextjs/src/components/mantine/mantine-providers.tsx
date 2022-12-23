@@ -5,6 +5,7 @@ import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 import { SpotlightProvider } from "@mantine/spotlight";
 import { mantineModals } from "./modals";
+import { IconSearch } from "@tabler/icons";
 
 interface MantineProvidersProps extends PropsWithChildren {}
 
@@ -19,7 +20,14 @@ export const MantineProviders = ({ children }: MantineProvidersProps) => {
     >
       <NotificationsProvider>
         <ModalsProvider modals={mantineModals}>
-          <SpotlightProvider actions={[]}>{children}</SpotlightProvider>
+          <SpotlightProvider
+            actions={[]}
+            searchIcon={<IconSearch size={18} />}
+            searchPlaceholder="Suchen"
+            topOffset={34}
+          >
+            {children}
+          </SpotlightProvider>
         </ModalsProvider>
       </NotificationsProvider>
     </MantineProvider>
