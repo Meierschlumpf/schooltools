@@ -1,11 +1,11 @@
-import { PropsWithChildren } from "react";
 import { MantineProvider } from "@mantine/core";
-import { mantineTheme } from "../../styles/mantine-theme";
 import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 import { SpotlightProvider } from "@mantine/spotlight";
-import { mantineModals } from "./modals";
 import { IconSearch } from "@tabler/icons";
+import { PropsWithChildren } from "react";
+import { mantineTheme } from "../../styles/mantine-theme";
+import { mantineModals } from "./modals";
 
 interface MantineProvidersProps extends PropsWithChildren {}
 

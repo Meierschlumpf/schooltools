@@ -38,6 +38,7 @@ export const MobileFooter = ({ activeTab }: MobileFooterProps) => {
         >
           {displayedTabs.map((tab) => (
             <MobileFooterTabLink
+              key={tab.id}
               {...tab}
               active={tab.id === activeTab && !moreDrawerOpened}
             />

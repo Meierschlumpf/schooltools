@@ -1,14 +1,11 @@
 import { ActionIcon, Avatar, Group, Indicator } from "@mantine/core";
 import { IconBell } from "@tabler/icons";
+import { MobileHeaderNotificationButton } from "./mobile-header-notification-button";
 
 export const MobileHeaderActions = () => {
   return (
     <Group h="100%" spacing={4}>
-      <ActionIcon size="lg" radius="xl">
-        <Indicator offset={5} size={10} withBorder position="top-start">
-          <IconBell stroke={1.5} size={24} />
-        </Indicator>
-      </ActionIcon>
+      <MobileHeaderNotificationButton />
       <ActionIcon size="lg" radius="xl">
         <Avatar
           size={24}

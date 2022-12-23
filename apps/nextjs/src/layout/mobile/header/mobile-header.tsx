@@ -1,5 +1,5 @@
 import { Container, Group, Header, Stack } from "@mantine/core";
-import { MobileHeaderActions } from "./mobile-header-actions";
+import { MobileHeaderActions } from "./actions/mobile-header-actions";
 import { MobileHeaderLogo } from "./mobile-header-logo";
 import { MobileHeaderSearch } from "./mobile-header-search";
 
