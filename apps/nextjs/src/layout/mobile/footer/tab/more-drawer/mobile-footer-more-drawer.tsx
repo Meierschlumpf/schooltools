@@ -1,9 +1,7 @@
 import {
-  Anchor,
   Drawer,
   Indicator,
   MantineColor,
-  MantineThemeColors,
   ScrollArea,
   Stack,
   Text,

@@ -1,4 +1,4 @@
-import { Container, Footer, Group, Portal } from "@mantine/core";
+import { Container, Footer, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconCalendarEvent,

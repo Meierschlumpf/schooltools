@@ -21,7 +21,7 @@ export const getTimeAgo = (date: Date) => {
   return dayjs(date).format("DD. MMM YYYY");
 };
 
-export const getTimeAgoWithUpdates = (date: Date) => {
+export const useTimeAgoWithUpdates = (date: Date) => {
   const ref = useRef<NodeJS.Timeout>();
   const [difference, setDifference] = useState<{
     version: number;
@@ -37,7 +37,7 @@ export const getTimeAgoWithUpdates = (date: Date) => {
       }));
     }, timeUntilNextUpdate);
     return () => ref.current && clearInterval(ref.current);
-  }, [difference]);
+  }, [difference, date]);
 
   return difference.value;
 };

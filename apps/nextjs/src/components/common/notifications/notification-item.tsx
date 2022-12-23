@@ -6,7 +6,7 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import { getTimeAgoWithUpdates } from "../../../helpers/getTimeAgo";
+import { useTimeAgoWithUpdates } from "../../../helpers/getTimeAgo";
 
 interface NotificationItemProps {
   notification: {
@@ -46,7 +46,7 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
               {notification.sender.username}
             </Text>
             <Text size="xs" color="dimmed">
-              {getTimeAgoWithUpdates(notification.createdAt)}
+              {useTimeAgoWithUpdates(notification.createdAt)}
             </Text>
           </Group>
           <Text size="sm" color="dimmed" lineClamp={4}>

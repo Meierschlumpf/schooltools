@@ -1,4 +1,4 @@
-import { ActionIcon, Avatar, Group } from "@mantine/core";
+import { Group } from "@mantine/core";
 import { MobileHeaderNotificationButton } from "./mobile-header-notification-button";
 import { MoibleHeaderUserButton } from "./mobile-header-user-button";
 

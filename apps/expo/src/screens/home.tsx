@@ -1,11 +1,6 @@
 import React from "react";
 
-import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlashList } from "@shopify/flash-list";
