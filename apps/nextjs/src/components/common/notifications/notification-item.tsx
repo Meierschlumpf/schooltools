@@ -11,7 +11,7 @@ import { getTimeAgoWithUpdates } from "../../../helpers/getTimeAgo";
 interface NotificationItemProps {
   notification: {
     id: string;
-    user: {
+    sender: {
       id: string;
       username: string;
       profileSrc: string;
@@ -37,13 +37,13 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
         <Avatar
           size="md"
           radius="xl"
-          src={notification.user.profileSrc}
-          alt={notification.user.username}
+          src={notification.sender.profileSrc}
+          alt={notification.sender.username}
         />
         <Stack style={{ flex: 1 }} spacing={4}>
           <Group position="apart">
             <Text weight={500} size="sm">
-              {notification.user.username}
+              {notification.sender.username}
             </Text>
             <Text size="xs" color="dimmed">
               {getTimeAgoWithUpdates(notification.createdAt)}

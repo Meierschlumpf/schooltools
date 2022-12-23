@@ -18,7 +18,7 @@ interface MobileHeaderNotificationDrawerProps {
 
 const exampleNotification = {
   id: "1",
-  user: {
+  sender: {
     id: "1",
     username: "Meierschlumpf",
     profileSrc: "https://avatars.githubusercontent.com/u/63781622?s=40&v=4",
@@ -73,7 +73,12 @@ export const MobileHeaderNotificationDrawer = ({
         </Group>
         <ScrollArea.Autosize maxHeight="calc(100vh - var(--mantine-footer-height) - 96px)">
           <Stack spacing={4}>
-            <NotificationItem notification={exampleNotification} />
+            <NotificationItem
+              notification={{
+                ...exampleNotification,
+                isRead: false,
+              }}
+            />
             <NotificationItem notification={exampleNotification} />
             <NotificationItem notification={exampleNotification} />
             <NotificationItem notification={exampleNotification} />
