@@ -10,17 +10,23 @@ import {
 
 interface MobileFooterTabMoreButtonProps {
   activeTab: MobileFooterTabs | MobileFooterMoreTabs;
+  disclosure: ReturnType<typeof useDisclosure>;
 }
 
 export const MobileFooterTabMoreButton = ({
   activeTab,
+  disclosure,
 }: MobileFooterTabMoreButtonProps) => {
-  const [drawerOpened, drawer] = useDisclosure(false);
+  const [drawerOpened, drawer] = disclosure;
 
   return (
     <>
-      <UnstyledButton onClick={drawer.open}>
-        <MobileFooterTabBase label="Mehr" icon={IconDots} />
+      <UnstyledButton onClick={drawer.toggle}>
+        <MobileFooterTabBase
+          label="Mehr"
+          icon={IconDots}
+          active={drawerOpened}
+        />
       </UnstyledButton>
       <MobileFooterMoreDrawer
         opened={drawerOpened}

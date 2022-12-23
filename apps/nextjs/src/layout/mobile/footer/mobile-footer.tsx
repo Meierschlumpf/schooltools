@@ -1,4 +1,5 @@
-import { Footer, Group } from "@mantine/core";
+import { Container, Footer, Group, Portal } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import {
   IconCalendarEvent,
   IconClipboardCheck,
@@ -17,7 +18,7 @@ interface MobileFooterProps {
 }
 
 export const MobileFooter = ({ activeTab }: MobileFooterProps) => {
-  console.log(activeTab);
+  const [moreDrawerOpened, moreDrawer] = useDisclosure(false);
   const isDefaultTabActive = initialFooterTabs.some((x) => x.id === activeTab);
   const displayedTabs = isDefaultTabActive
     ? initialFooterTabs
@@ -26,23 +27,34 @@ export const MobileFooter = ({ activeTab }: MobileFooterProps) => {
   const otherActiveTab = moreFooterTabOptions.find((x) => x.id === activeTab);
 
   return (
-    <Footer height={72}>
-      <Group
-        style={{ justifyContent: "space-around" }}
-        h="100%"
-        w="100%"
-        noWrap
-        spacing={0}
-      >
-        {displayedTabs.map((tab) => (
-          <MobileFooterTabLink {...tab} active={tab.id === activeTab} />
-        ))}
-        {otherActiveTab ? (
-          <MobileFooterTabLink {...otherActiveTab} active />
-        ) : null}
-        <MobileFooterTabMoreButton activeTab={activeTab} />
-      </Group>
-    </Footer>
+    <Container pos="relative">
+      <Footer height={72} pos="absolute" zIndex={9999}>
+        <Group
+          style={{ justifyContent: "space-around" }}
+          h="100%"
+          w="100%"
+          noWrap
+          spacing={0}
+        >
+          {displayedTabs.map((tab) => (
+            <MobileFooterTabLink
+              {...tab}
+              active={tab.id === activeTab && !moreDrawerOpened}
+            />
+          ))}
+          {otherActiveTab ? (
+            <MobileFooterTabLink
+              {...otherActiveTab}
+              active={!moreDrawerOpened}
+            />
+          ) : null}
+          <MobileFooterTabMoreButton
+            disclosure={[moreDrawerOpened, moreDrawer]}
+            activeTab={activeTab}
+          />
+        </Group>
+      </Footer>
+    </Container>
   );
 };
 

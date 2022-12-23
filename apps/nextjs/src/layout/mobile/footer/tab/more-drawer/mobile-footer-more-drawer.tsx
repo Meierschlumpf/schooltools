@@ -31,6 +31,7 @@ export const MobileFooterMoreDrawer = ({
 
   return (
     <Drawer
+      withCloseButton={false}
       onClose={closeDrawer}
       opened={opened}
       position="bottom"
@@ -46,7 +47,7 @@ export const MobileFooterMoreDrawer = ({
       }}
     >
       <ScrollArea.Autosize
-        maxHeight="calc(100vh - var(--mantine-header-height) - 192px)"
+        maxHeight="calc(100vh - var(--mantine-header-height) - var(--mantine-footer-height) - 192px)"
         styles={{
           viewport: {
             paddingLeft: spacing.md,
@@ -69,7 +70,63 @@ export const MobileFooterMoreDrawer = ({
           {moreFooterTabOptions
             .filter((o) => o.id !== activeTab)
             .map((option) => (
-              <AppItem option={option} />
+              <>
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+                <AppItem option={option} key={option.id} />
+              </>
             ))}
         </div>
       </ScrollArea.Autosize>
