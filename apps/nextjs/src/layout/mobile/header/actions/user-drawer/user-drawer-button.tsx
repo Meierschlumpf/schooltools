@@ -10,18 +10,20 @@ import { TablerIcon, IconChevronRight } from "@tabler/icons";
 interface UserDrawerButtonProps {
   icon: TablerIcon;
   label: string;
+  onClick?: () => void;
   activeValue?: string;
 }
 
 export const UserDrawerButton = ({
   icon: Icon,
   label,
+  onClick,
   activeValue,
 }: UserDrawerButtonProps) => {
   const { colors } = useMantineTheme();
 
   return (
-    <UnstyledButton py="xs">
+    <UnstyledButton py="xs" onClick={onClick}>
       <Group>
         <ThemeIcon color="transparent">
           <Icon stroke={1.5} color={colors.gray[6]} />

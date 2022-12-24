@@ -9,6 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import {
   IconArrowLeft,
   IconBell,
@@ -21,6 +22,7 @@ import {
   IconQuestionCircle,
 } from "@tabler/icons";
 import { useTranslation } from "next-i18next";
+import { LanguageDrawer } from "./app-settings/language-drawer";
 import { UserDrawerButton } from "./user-drawer-button";
 
 interface MobileHeaderUserDrawerProps {
@@ -33,6 +35,7 @@ export const MobileHeaderUserDrawer = ({
   closeDrawer,
 }: MobileHeaderUserDrawerProps) => {
   const { t } = useTranslation("layout/header/profile/common");
+  const [languageDrawerOpened, languageDrawer] = useDisclosure(false);
 
   return (
     <Drawer
@@ -84,6 +87,11 @@ export const MobileHeaderUserDrawer = ({
               icon={IconLanguage}
               label={t("section.app-settings.items.language.label")}
               activeValue="Deutsch"
+              onClick={languageDrawer.open}
+            />
+            <LanguageDrawer
+              opened={languageDrawerOpened}
+              closeDrawer={languageDrawer.close}
             />
             <UserDrawerButton
               icon={IconPalette}

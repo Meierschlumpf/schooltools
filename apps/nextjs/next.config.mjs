@@ -16,6 +16,9 @@ const config = {
     // Enables hot-reload and easy integration for local packages
     transpilePackages: ["@acme/api", "@acme/auth", "@acme/db"],
   },
+  images: {
+    domains: ["discord.com"],
+  },
   // We already do linting on GH actions
   eslint: {
     ignoreDuringBuilds: !!process.env.CI,

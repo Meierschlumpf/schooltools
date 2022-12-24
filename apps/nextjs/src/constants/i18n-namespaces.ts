@@ -3,6 +3,7 @@ export const defaultI18nNamespaces = [
   "layout/footer/common",
   "layout/header/search",
   "layout/header/profile/common",
+  "layout/header/profile/app-settings/language",
   "layout/header/notification/common",
 ] as const;
 
