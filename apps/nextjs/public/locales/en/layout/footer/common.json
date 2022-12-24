@@ -1,0 +1,26 @@
+{
+  "tab": {
+    "home": {
+      "label": "Home"
+    },
+    "plan": {
+      "label": "Plan"
+    },
+    "task": {
+      "label": "Tasks"
+    },
+    "assessment": {
+      "label": "Assessments"
+    },
+    "more": {
+      "label": "More",
+      "drawer": {
+        "newIndicator": "New",
+        "title": "Additionall features"
+      }
+    },
+    "example": {
+      "label": "Example"
+    }
+  }
+}

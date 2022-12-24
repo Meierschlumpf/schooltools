@@ -1,0 +1,26 @@
+{
+  "tab": {
+    "home": {
+      "label": "Startseite"
+    },
+    "plan": {
+      "label": "Plan"
+    },
+    "task": {
+      "label": "Aufgaben"
+    },
+    "assessment": {
+      "label": "Bewertungen"
+    },
+    "more": {
+      "label": "Mehr",
+      "drawer": {
+        "newIndicator": "Neu",
+        "title": "Weitere Funktionen"
+      }
+    },
+    "example": {
+      "label": "Beispiel"
+    }
+  }
+}

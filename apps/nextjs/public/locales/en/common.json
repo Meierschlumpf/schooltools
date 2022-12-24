@@ -1,0 +1,13 @@
+{
+  "timeAgo": {
+    "justNow": "just now",
+    "second_one": "{{count}} second ago",
+    "second_other": "{{count}} seconds ago",
+    "minute_one": "{{count}} minute ago",
+    "minute_other": "{{count}} minutes ago",
+    "hour_one": "{{count}} hour ago",
+    "hour_other": "{{count}} hours ago",
+    "day_one": "{{count}} day ago",
+    "day_other": "{{count}} days ago"
+  }
+}

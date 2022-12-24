@@ -1,0 +1,51 @@
+{
+  "title": "Your profile",
+  "status": {
+    "available": "Available"
+  },
+  "section": {
+    "app-settings": {
+      "heading": "App settings",
+      "items": {
+        "language": {
+          "label": "Language"
+        },
+        "appearance": {
+          "label": "Appearance",
+          "activeValue": {
+            "light": "Light",
+            "dark": "Dark"
+          }
+        },
+        "profile": {
+          "label": "User profile"
+        },
+        "privacy": {
+          "label": "Privacy and security"
+        },
+        "notification": {
+          "label": "Notifications"
+        }
+      }
+    },
+    "help": {
+      "heading": "Help & News",
+      "items": {
+        "help": {
+          "label": "Help"
+        },
+        "news": {
+          "label": "News"
+        }
+      }
+    },
+    "developer": {
+      "heading": "Developer",
+      "items": {
+        "settings": {
+          "label": "Developer settings"
+        }
+      }
+    }
+  }
+}

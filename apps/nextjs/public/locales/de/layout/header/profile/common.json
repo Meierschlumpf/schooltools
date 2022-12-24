@@ -1,0 +1,51 @@
+{
+  "title": "Dein Profil",
+  "status": {
+    "available": "Verfügbar"
+  },
+  "section": {
+    "app-settings": {
+      "heading": "App Einstellungen",
+      "items": {
+        "language": {
+          "label": "Sprache"
+        },
+        "appearance": {
+          "label": "Erscheinungsbild",
+          "activeValue": {
+            "light": "Hell",
+            "dark": "Dunkel"
+          }
+        },
+        "profile": {
+          "label": "Nutzerprofil"
+        },
+        "privacy": {
+          "label": "Privatsphäre & Sicherheit"
+        },
+        "notification": {
+          "label": "Benachrichtigungen"
+        }
+      }
+    },
+    "help": {
+      "heading": "Hilfe & Neuigkeiten",
+      "items": {
+        "help": {
+          "label": "Hilfe"
+        },
+        "news": {
+          "label": "Neuigkeiten"
+        }
+      }
+    },
+    "developer": {
+      "heading": "Entwickler",
+      "items": {
+        "settings": {
+          "label": "Enwicklereinstellungen"
+        }
+      }
+    }
+  }
+}
