@@ -7,15 +7,11 @@ import {
   ScrollArea,
   Stack,
   Text,
-  ThemeIcon,
   Title,
-  UnstyledButton,
-  useMantineTheme,
 } from "@mantine/core";
 import {
   IconArrowLeft,
   IconBell,
-  IconChevronRight,
   IconCode,
   IconInfoCircle,
   IconKey,
@@ -23,7 +19,6 @@ import {
   IconPalette,
   IconPencil,
   IconQuestionCircle,
-  TablerIcon,
 } from "@tabler/icons";
 import { UserDrawerButton } from "./user-drawer-button";
 

@@ -1,17 +1,5 @@
-import {
-  Drawer,
-  Indicator,
-  MantineColor,
-  ScrollArea,
-  Stack,
-  Text,
-  ThemeIcon,
-  Title,
-  UnstyledButton,
-  useMantineTheme,
-} from "@mantine/core";
-import { Icon123, TablerIcon } from "@tabler/icons";
-import Link from "next/link";
+import { Drawer, ScrollArea, Title, useMantineTheme } from "@mantine/core";
+import { Icon123 } from "@tabler/icons";
 import { initialFooterTabs, MobileFooterTabs } from "../../mobile-footer";
 import { MobileFooterAppItem } from "./mobile-footer-app-item";
 
@@ -27,6 +15,7 @@ export const MobileFooterMoreDrawer = ({
   activeTab,
 }: MobileFooterMoreDrawerProps) => {
   const { spacing } = useMantineTheme();
+  const lastTabItem = initialFooterTabs.at(-1);
 
   return (
     <Drawer
@@ -64,8 +53,9 @@ export const MobileFooterMoreDrawer = ({
             justifyContent: "space-between",
           }}
         >
-          {moreFooterTabOptions.some((x) => x.id === activeTab) ? (
-            <MobileFooterAppItem option={initialFooterTabs.at(-1)!} />
+          {moreFooterTabOptions.some((x) => x.id === activeTab) &&
+          lastTabItem ? (
+            <MobileFooterAppItem option={lastTabItem} />
           ) : null}
           {moreFooterTabOptions
             .filter((o) => o.id !== activeTab)
