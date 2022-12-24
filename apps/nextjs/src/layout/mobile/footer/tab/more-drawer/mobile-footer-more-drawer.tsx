@@ -1,5 +1,6 @@
 import { Drawer, ScrollArea, Title, useMantineTheme } from "@mantine/core";
 import { Icon123 } from "@tabler/icons";
+import { useTranslation } from "next-i18next";
 import { initialFooterTabs, MobileFooterTabs } from "../../mobile-footer";
 import { MobileFooterAppItem } from "./mobile-footer-app-item";
 
@@ -14,6 +15,7 @@ export const MobileFooterMoreDrawer = ({
   closeDrawer,
   activeTab,
 }: MobileFooterMoreDrawerProps) => {
+  const { t } = useTranslation("layout/footer/common");
   const { spacing } = useMantineTheme();
   const lastTabItem = initialFooterTabs.at(-1);
 
@@ -25,7 +27,7 @@ export const MobileFooterMoreDrawer = ({
       position="bottom"
       size="calc(100% - var(--mantine-header-height) - 128px)"
       padding="sm"
-      title={<Title order={5}>Weitere Funktionen</Title>}
+      title={<Title order={5}>{t("tab.more.drawer.title")}</Title>}
       styles={{
         header: {
           paddingLeft: spacing.md,
@@ -71,7 +73,6 @@ export const MobileFooterMoreDrawer = ({
 export const moreFooterTabOptions = [
   {
     id: "example",
-    label: "Example",
     icon: Icon123,
     href: "/examples",
     color: "teal",

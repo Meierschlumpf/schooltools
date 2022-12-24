@@ -22,11 +22,7 @@ export const MobileFooterTabMoreButton = ({
   return (
     <>
       <UnstyledButton onClick={drawer.toggle}>
-        <MobileFooterTabBase
-          label="Mehr"
-          icon={IconDots}
-          active={drawerOpened}
-        />
+        <MobileFooterTabBase id="more" icon={IconDots} active={drawerOpened} />
       </UnstyledButton>
       <MobileFooterMoreDrawer
         opened={drawerOpened}

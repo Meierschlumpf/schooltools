@@ -20,6 +20,7 @@ import {
   IconPencil,
   IconQuestionCircle,
 } from "@tabler/icons";
+import { useTranslation } from "next-i18next";
 import { UserDrawerButton } from "./user-drawer-button";
 
 interface MobileHeaderUserDrawerProps {
@@ -31,6 +32,8 @@ export const MobileHeaderUserDrawer = ({
   opened,
   closeDrawer,
 }: MobileHeaderUserDrawerProps) => {
+  const { t } = useTranslation("layout/header/profile/common");
+
   return (
     <Drawer
       opened={opened}
@@ -47,7 +50,7 @@ export const MobileHeaderUserDrawer = ({
           <ActionIcon radius="xl" onClick={closeDrawer}>
             <IconArrowLeft stroke={1.5} size={24} />
           </ActionIcon>
-          <Title order={5}>Dein Profil</Title>
+          <Title order={5}>{t("title")}</Title>
         </Group>
       }
       withCloseButton={false}
@@ -68,50 +71,64 @@ export const MobileHeaderUserDrawer = ({
                 meierschlumpf@gmail.com
               </Text>
               <Text weight={300} size="xs" mt={6}>
-                Verfügbar
+                {t("status.available")}
               </Text>
             </Stack>
           </Group>
           <Divider />
           <Text weight={500} size="sm">
-            App Einstellungen
+            {t("section.app-settings.heading")}
           </Text>
           <Stack spacing={0}>
             <UserDrawerButton
               icon={IconLanguage}
-              label="Sprache"
+              label={t("section.app-settings.items.language.label")}
               activeValue="Deutsch"
             />
             <UserDrawerButton
               icon={IconPalette}
-              label="Erscheinungsbild"
-              activeValue="Dunkel"
+              label={t("section.app-settings.items.appearance.label")}
+              activeValue={t(
+                "section.app-settings.items.appearance.activeValue.dark",
+              )}
             />
-            <UserDrawerButton icon={IconPencil} label="Nutzerprofil" />
+            <UserDrawerButton
+              icon={IconPencil}
+              label={t("section.app-settings.items.profile.label")}
+            />
             <UserDrawerButton
               icon={IconKey}
-              label="Privatsphäre & Sicherheit"
+              label={t("section.app-settings.items.privacy.label")}
             />
-            <UserDrawerButton icon={IconBell} label="Benachrichtigungen" />
+            <UserDrawerButton
+              icon={IconBell}
+              label={t("section.app-settings.items.notification.label")}
+            />
           </Stack>
           <Divider />
           <Text weight={500} size="sm">
-            Hilfe & Neuigkeiten
+            {t("section.help.heading")}
           </Text>
           <Stack spacing={0}>
-            <UserDrawerButton icon={IconQuestionCircle} label="Hilfe" />
+            <UserDrawerButton
+              icon={IconQuestionCircle}
+              label={t("section.help.items.help.label")}
+            />
             <UserDrawerButton
               icon={IconInfoCircle}
-              label="Neuigkeiten"
+              label={t("section.help.items.news.label")}
               activeValue="Alpha-0.1 (2022-12)"
             />
           </Stack>
           <Divider />
           <Text weight={500} size="sm">
-            Entwickler
+            {t("section.developer.heading")}
           </Text>
           <Stack spacing={0}>
-            <UserDrawerButton icon={IconCode} label="Entwicklereinstellungen" />
+            <UserDrawerButton
+              icon={IconCode}
+              label={t("section.developer.items.settings.label")}
+            />
           </Stack>
         </Stack>
       </ScrollArea.Autosize>

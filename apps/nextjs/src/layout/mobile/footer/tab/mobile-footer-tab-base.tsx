@@ -1,17 +1,19 @@
 import { useMantineTheme, Stack, Text, ThemeIcon } from "@mantine/core";
 import { TablerIcon } from "@tabler/icons";
+import { useTranslation } from "next-i18next";
 
 export interface MobileFooterTabBaseProps {
-  label: string;
+  id: string;
   icon: TablerIcon;
   active?: boolean;
 }
 
 export const MobileFooterTabBase = ({
-  label,
+  id,
   icon: Icon,
   active,
 }: MobileFooterTabBaseProps) => {
+  const { t } = useTranslation("layout/footer/common");
   const { colors, fn } = useMantineTheme();
 
   return (
@@ -26,7 +28,7 @@ export const MobileFooterTabBase = ({
       >
         <Icon size={20} />
       </ThemeIcon>
-      <Text size={10}>{label}</Text>
+      <Text size={10}>{t(`tab.${id}.label`)}</Text>
     </Stack>
   );
 };
