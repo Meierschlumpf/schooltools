@@ -1,18 +1,36 @@
 // src/pages/_app.tsx
-import "../styles/globals.css";
-import { SessionProvider } from "next-auth/react";
 import type { Session } from "next-auth";
-import type { AppType } from "next/app";
+import { SessionProvider } from "next-auth/react";
+import type { AppProps } from "next/app";
+import "../styles/globals.css";
 
+import { NextPage } from "next";
+import { ReactElement, ReactNode } from "react";
+import { MantineProviders } from "../components/mantine/mantine-providers";
 import { trpc } from "../utils/trpc";
 
-const MyApp: AppType<{ session: Session | null }> = ({
+export type NextPageWithLayout<P = Record<string, never>, IP = P> = NextPage<
+  P,
+  IP
+> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps<{ session: Session | null }> & {
+  Component: NextPageWithLayout;
+};
+
+const MyApp = ({
   Component,
   pageProps: { session, ...pageProps },
-}) => {
+}: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <MantineProviders>
+        {getLayout(<Component {...pageProps} />)}
+      </MantineProviders>
     </SessionProvider>
   );
 };
