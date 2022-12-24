@@ -13,6 +13,7 @@ import {
 import { Icon123, TablerIcon } from "@tabler/icons";
 import Link from "next/link";
 import { initialFooterTabs, MobileFooterTabs } from "../../mobile-footer";
+import { MobileFooterAppItem } from "./mobile-footer-app-item";
 
 interface MobileFooterMoreDrawerProps {
   opened: boolean;
@@ -64,50 +65,16 @@ export const MobileFooterMoreDrawer = ({
           }}
         >
           {moreFooterTabOptions.some((x) => x.id === activeTab) ? (
-            <AppItem option={initialFooterTabs.at(-1)!} />
+            <MobileFooterAppItem option={initialFooterTabs.at(-1)!} />
           ) : null}
           {moreFooterTabOptions
             .filter((o) => o.id !== activeTab)
             .map((option) => (
-              <AppItem option={option} key={option.id} />
+              <MobileFooterAppItem option={option} key={option.id} />
             ))}
         </div>
       </ScrollArea.Autosize>
     </Drawer>
-  );
-};
-
-interface AppItemProps {
-  option: AppOption;
-}
-
-const AppItem = ({ option }: AppItemProps) => {
-  return (
-    <Indicator
-      label={<Text size={9}>Neu</Text>}
-      showZero={false}
-      size={18}
-      color="indigo"
-      withBorder
-      inline
-      disabled={!option.isNew}
-    >
-      <UnstyledButton key={option.id} component={Link} href={option.href}>
-        <Stack align="center" spacing={4}>
-          <ThemeIcon size="xl" color={option.color}>
-            <Icon123 />
-          </ThemeIcon>
-          <Text
-            size={11}
-            maw={72}
-            lineClamp={1}
-            style={{ overflowWrap: "break-word" }}
-          >
-            {option.label}
-          </Text>
-        </Stack>
-      </UnstyledButton>
-    </Indicator>
   );
 };
 
@@ -122,12 +89,3 @@ export const moreFooterTabOptions = [
 ] as const;
 
 export type MobileFooterMoreTabs = typeof moreFooterTabOptions[number]["id"];
-
-export interface AppOption {
-  readonly id: MobileFooterMoreTabs | MobileFooterTabs;
-  readonly label: string;
-  readonly icon: TablerIcon;
-  readonly href: string;
-  readonly color: MantineColor;
-  readonly isNew?: boolean;
-}

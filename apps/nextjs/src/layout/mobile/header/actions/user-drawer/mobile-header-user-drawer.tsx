@@ -25,6 +25,7 @@ import {
   IconQuestionCircle,
   TablerIcon,
 } from "@tabler/icons";
+import { UserDrawerButton } from "./user-drawer-button";
 
 interface MobileHeaderUserDrawerProps {
   opened: boolean;
@@ -120,38 +121,5 @@ export const MobileHeaderUserDrawer = ({
         </Stack>
       </ScrollArea.Autosize>
     </Drawer>
-  );
-};
-
-interface UserDrawerButtonProps {
-  icon: TablerIcon;
-  label: string;
-  activeValue?: string;
-}
-
-const UserDrawerButton = ({
-  icon: Icon,
-  label,
-  activeValue,
-}: UserDrawerButtonProps) => {
-  const { colors } = useMantineTheme();
-
-  return (
-    <UnstyledButton py="xs">
-      <Group>
-        <ThemeIcon color="transparent">
-          <Icon stroke={1.5} color={colors.gray[6]} />
-        </ThemeIcon>
-        <Group style={{ flex: 1 }} position="apart">
-          <Text color="white">{label}</Text>
-          <Group>
-            <Text color="dimmed" size="sm">
-              {activeValue}
-            </Text>
-            <IconChevronRight size={20} />
-          </Group>
-        </Group>
-      </Group>
-    </UnstyledButton>
   );
 };
