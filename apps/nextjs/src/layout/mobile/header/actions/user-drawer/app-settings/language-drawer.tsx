@@ -11,8 +11,10 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconArrowLeft, IconCheck } from "@tabler/icons";
+import { setCookie } from "cookies-next";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
+import { LOCALE_COOKIE_KEY } from "../../../../../../constants/cookies";
 import { languages } from "../../../../../../constants/languages";
 
 interface LanguageDrawerProps {
@@ -30,6 +32,7 @@ export const LanguageDrawer = ({
   const { colors } = useMantineTheme();
   const onLanguageSelection = (value: string) => {
     i18n.changeLanguage(value);
+    setCookie(LOCALE_COOKIE_KEY, value);
   };
 
   const data = Object.entries(languages).map(([k, v]) => ({
