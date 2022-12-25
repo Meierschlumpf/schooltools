@@ -22,6 +22,7 @@ import {
   IconQuestionCircle,
 } from "@tabler/icons";
 import { useTranslation } from "next-i18next";
+import { languages } from "../../../../../constants/languages";
 import { LanguageDrawer } from "./app-settings/language-drawer";
 import { UserDrawerButton } from "./user-drawer-button";
 
@@ -34,7 +35,7 @@ export const MobileHeaderUserDrawer = ({
   opened,
   closeDrawer,
 }: MobileHeaderUserDrawerProps) => {
-  const { t } = useTranslation("layout/header/profile/common");
+  const { t, i18n } = useTranslation("layout/header/profile/common");
   const [languageDrawerOpened, languageDrawer] = useDisclosure(false);
 
   return (
@@ -86,7 +87,9 @@ export const MobileHeaderUserDrawer = ({
             <UserDrawerButton
               icon={IconLanguage}
               label={t("section.app-settings.items.language.label")}
-              activeValue="Deutsch"
+              activeValue={
+                languages[i18n.language as keyof typeof languages].label
+              }
               onClick={languageDrawer.open}
             />
             <LanguageDrawer
