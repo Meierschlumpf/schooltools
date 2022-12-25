@@ -1,0 +1,13 @@
+{
+  "role": {
+    "apprentice": {
+      "label": "Lehrling"
+    },
+    "teacher": {
+      "label": "Lehrperson"
+    },
+    "admin": {
+      "label": "Admin"
+    }
+  }
+}
