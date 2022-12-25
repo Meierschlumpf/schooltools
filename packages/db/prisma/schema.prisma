@@ -10,12 +10,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id      String @id @default(cuid())
-    title   String
-    content String
-}
-
 // NextAuth.js Models
 // NOTE: When using postgresql, mysql or sqlserver, 
 // uncomment the @db.Text annotations below
@@ -62,4 +56,12 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Lesson {
+    id    String   @id @default(cuid())
+    title String?  @db.Text()
+    date  DateTime
+    start Int      @db.SmallInt()
+    end   Int      @db.SmallInt()
 }
