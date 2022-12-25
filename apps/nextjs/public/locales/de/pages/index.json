@@ -1,0 +1,16 @@
+{
+  "fastAction": {
+    "class": {
+      "label": "Meine Klassen"
+    },
+    "subject": {
+      "label": "Meine Fächer"
+    },
+    "schedule": {
+      "label": "Mein Stundenplan"
+    },
+    "absence": {
+      "label": "Meine Absenzen"
+    }
+  }
+}
