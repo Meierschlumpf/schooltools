@@ -22,7 +22,13 @@ const getTimeAgo = (date: Date): [string] | [string, number] | string => {
   return dayjs(date).format("DD. MMM YYYY");
 };
 
-export const useTimeAgo = (date: Date) => {};
+export const useTimeAgo = (date: Date) => {
+  const { t } = useTranslation("common");
+  const result = getTimeAgo(date);
+  return typeof result === "string"
+    ? result
+    : t(`timeAgo.${result[0]}`, { count: result[1] });
+};
 
 export const useTimeAgoWithUpdates = (date: Date) => {
   const ref = useRef<NodeJS.Timeout>();
@@ -52,7 +58,7 @@ export const useTimeAgoWithUpdates = (date: Date) => {
       }));
     }, timeUntilNextUpdate);
     return () => ref.current && clearInterval(ref.current);
-  }, [difference, date]);
+  }, [difference, date, t]);
 
   return difference.value;
 };

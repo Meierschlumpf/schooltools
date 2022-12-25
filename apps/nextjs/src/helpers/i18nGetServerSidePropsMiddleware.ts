@@ -1,17 +1,13 @@
 import { getCookie, setCookie } from "cookies-next";
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  PreviewData,
-} from "next";
-import { LOCALE_COOKIE_KEY } from "../constants/cookies";
+import { GetServerSidePropsContext, PreviewData } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { ParsedUrlQuery } from "querystring";
 import nextI18nConfig from "../../next-i18next.config.js";
+import { LOCALE_COOKIE_KEY } from "../constants/cookies";
 import {
   defaultI18nNamespaces,
   i18nNamespaceType,
 } from "../constants/i18n-namespaces";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { ParsedUrlQuery } from "querystring";
 
 export const i18nGetServerSideProps = async <
   Q extends ParsedUrlQuery = ParsedUrlQuery,

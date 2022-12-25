@@ -64,7 +64,10 @@ export const LanguageDrawer = ({
       <ScrollArea.Autosize maxHeight="calc(100vh - var(--mantine-footer-height) - 64px)">
         <Stack>
           {data.map((language) => (
-            <UnstyledButton onClick={() => onLanguageSelection(language.value)}>
+            <UnstyledButton
+              key={language.value}
+              onClick={() => onLanguageSelection(language.value)}
+            >
               <Group position="apart">
                 <Group>
                   <Image
