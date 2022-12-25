@@ -1,0 +1,13 @@
+{
+  "timeAgo": {
+    "justNow": "jetzt gerade",
+    "second_one": "vor {{count}} Sekunde",
+    "second_other": "vor {{count}} Sekunden",
+    "minute_one": "vor {{count}} Minute",
+    "minute_other": "vor {{count}} Minuten",
+    "hour_one": "vor {{count}} Stunde",
+    "hour_other": "vor {{count}} Stunden",
+    "day_one": "vor {{count}} Tag",
+    "day_other": "vor {{count}} Tagen"
+  }
+}

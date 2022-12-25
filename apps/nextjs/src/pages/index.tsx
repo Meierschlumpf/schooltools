@@ -1,5 +1,7 @@
 import { Title } from "@mantine/core";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { i18nGetServerSideProps } from "../helpers/i18nGetServerSidePropsMiddleware";
 import { MobileLayout } from "../layout/mobile/mobile-layout";
 import { NextPageWithLayout } from "./_app";
 
@@ -21,3 +23,11 @@ Home.getLayout = (page) => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {
+      ...(await i18nGetServerSideProps(context)),
+    },
+  };
+};

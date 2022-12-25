@@ -7,6 +7,7 @@ import {
   Text,
 } from "@mantine/core";
 import { Icon123, TablerIcon } from "@tabler/icons";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { MobileFooterTabs } from "../../mobile-footer";
 import { MobileFooterMoreTabs } from "./mobile-footer-more-drawer";
@@ -16,9 +17,10 @@ interface AppItemProps {
 }
 
 export const MobileFooterAppItem = ({ option }: AppItemProps) => {
+  const { t } = useTranslation("layout/footer/common");
   return (
     <Indicator
-      label={<Text size={9}>Neu</Text>}
+      label={<Text size={9}>{t("tab.more.drawer.newIndicator")}</Text>}
       showZero={false}
       size={18}
       color="indigo"
@@ -37,7 +39,7 @@ export const MobileFooterAppItem = ({ option }: AppItemProps) => {
             lineClamp={1}
             style={{ overflowWrap: "break-word" }}
           >
-            {option.label}
+            {t(`tab.${option.id}.label`)}
           </Text>
         </Stack>
       </UnstyledButton>
@@ -47,7 +49,6 @@ export const MobileFooterAppItem = ({ option }: AppItemProps) => {
 
 export interface AppOption {
   readonly id: MobileFooterMoreTabs | MobileFooterTabs;
-  readonly label: string;
   readonly icon: TablerIcon;
   readonly href: string;
   readonly color: MantineColor;

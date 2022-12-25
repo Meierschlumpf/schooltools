@@ -8,6 +8,7 @@ import {
   Title,
 } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons";
+import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { NotificationItem } from "../../../../../components/common/notifications/notification-item";
 
@@ -32,6 +33,7 @@ export const MobileHeaderNotificationDrawer = ({
   opened,
   closeDrawer,
 }: MobileHeaderNotificationDrawerProps) => {
+  const { t } = useTranslation("layout/header/notification/common");
   const [tab, setTab] = useState("all");
 
   return (
@@ -50,7 +52,7 @@ export const MobileHeaderNotificationDrawer = ({
           <ActionIcon radius="xl" onClick={closeDrawer}>
             <IconArrowLeft stroke={1.5} size={24} />
           </ActionIcon>
-          <Title order={5}>Benachrichtigungen</Title>
+          <Title order={5}>{t("title")}</Title>
         </Group>
       }
       withCloseButton={false}
@@ -61,13 +63,13 @@ export const MobileHeaderNotificationDrawer = ({
         <Group>
           <Chip.Group value={tab} onChange={(value: string) => setTab(value)}>
             <Chip size="xs" variant="filled" value="all" color="indigo">
-              Alle
+              {t("chip.all")}
             </Chip>
             <Chip size="xs" variant="filled" value="tasks" color="indigo">
-              Aufgaben
+              {t("chip.task")}
             </Chip>
             <Chip size="xs" variant="filled" value="assessments" color="indigo">
-              Bewertungen
+              {t("chip.assessment")}
             </Chip>
           </Chip.Group>
         </Group>

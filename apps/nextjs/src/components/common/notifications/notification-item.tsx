@@ -6,7 +6,7 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import { useTimeAgoWithUpdates } from "../../../helpers/getTimeAgo";
+import { useTimeAgoWithUpdates } from "../../../hooks/useTimeAgo";
 
 interface NotificationItemProps {
   notification: {

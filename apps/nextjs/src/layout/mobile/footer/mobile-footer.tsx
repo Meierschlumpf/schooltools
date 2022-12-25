@@ -60,24 +60,21 @@ export const MobileFooter = ({ activeTab }: MobileFooterProps) => {
 };
 
 export const initialFooterTabs = [
-  { id: "home", label: "Home", icon: IconHome, href: "/", color: "teal" },
+  { id: "home", icon: IconHome, href: "/", color: "teal" },
   {
     id: "plan",
-    label: "Plan",
     icon: IconCalendarEvent,
     href: "/plans",
     color: "teal",
   },
   {
     id: "task",
-    label: "Aufgaben",
     icon: IconListCheck,
     href: "/tasks",
     color: "teal",
   },
   {
     id: "assessment",
-    label: "Bewertungen",
     icon: IconClipboardCheck,
     href: "/assessments",
     color: "teal",
