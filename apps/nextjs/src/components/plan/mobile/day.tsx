@@ -1,5 +1,7 @@
 import { Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
+import { RefObject } from "react";
 import { isToday } from "../../../helpers/date/isToday";
+import { useNextScheduleContext } from "../../../pages/plans";
 import { Lesson, PlanLesson } from "./lesson";
 
 interface PlanDayProps {
@@ -8,6 +10,8 @@ interface PlanDayProps {
 
 export const PlanDay = ({ lessons }: PlanDayProps) => {
   const { colors } = useMantineTheme();
+  const dayRef = useNextScheduleContext()?.dayRef;
+  const nextScheduleDate = useNextScheduleContext()?.nextScheduleDate;
   const firstLesson = lessons.at(0)!;
 
   return (
@@ -18,6 +22,11 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
         </Text>
         <Title
           color={isToday(firstLesson.date) ? colors.indigo[3] : undefined}
+          ref={
+            firstLesson.date.getTime() === nextScheduleDate?.getTime()
+              ? (dayRef as RefObject<HTMLHeadingElement>)
+              : undefined
+          }
           order={4}
         >
           {firstLesson!.date.getDate()}

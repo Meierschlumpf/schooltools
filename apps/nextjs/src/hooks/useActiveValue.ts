@@ -23,7 +23,7 @@ export const useActiveValue = <TData, TActiveValue>({
     itemRefs.current[i] = createRef<HTMLDivElement>();
   });
 
-  const onScrollPositionChange = () => {
+  const updateActiveValue = () => {
     const res = Object.entries(itemRefs.current).reduce(
       (
         previous: {
@@ -51,7 +51,7 @@ export const useActiveValue = <TData, TActiveValue>({
     wrapperRef,
     itemRefs,
     activeValue,
-    onScrollPositionChange,
+    updateActiveValue,
     generateKey,
   };
 };
