@@ -1,15 +1,14 @@
-import { Card, Group, ScrollArea, Stack, Text, Title } from "@mantine/core";
+import { ScrollArea, Stack, Title } from "@mantine/core";
 import { GetServerSideProps } from "next";
 import { createRef, RefObject, useRef, useState } from "react";
 import { Lesson } from "../../components/plan/mobile/lesson";
 import { months, PlanMonth } from "../../components/plan/mobile/month";
 import { i18nGetServerSideProps } from "../../helpers/i18nGetServerSidePropsMiddleware";
+import { useActiveValue } from "../../hooks/useActiveValue";
 import { MobileLayout } from "../../layout/mobile/mobile-layout";
 import { NextPageWithLayout } from "../_app";
 
 const Page: NextPageWithLayout = () => {
-  const ref = useRef<Record<string, RefObject<HTMLDivElement>>>({});
-
   const data = exampleData
     .reduce(
       (prev: { year: number; month: number; lessons: Lesson[] }[], curr) => {
@@ -36,41 +35,38 @@ const Page: NextPageWithLayout = () => {
       return n !== 0 ? n : a.month - b.month;
     });
 
-  const refKeys = data.map((i) => `${i.year}-${i.month}`);
-
-  refKeys.forEach((m) => {
-    ref.current[m] = createRef<HTMLDivElement>();
+  const firstItem = data.at(0)!;
+  const {
+    itemRefs,
+    wrapperRef,
+    onScrollPositionChange,
+    activeValue,
+    generateKey,
+  } = useActiveValue({
+    data,
+    initialValue: {
+      year: firstItem.year,
+      month: firstItem.month,
+    },
+    generateKey(val) {
+      return `${val.year}-${val.month}`;
+    },
+    parseKey(key) {
+      const [yearString, monthString] = key.split("-");
+      return {
+        year: parseInt(yearString!),
+        month: parseInt(monthString!),
+      };
+    },
   });
-
-  const [active, setActive] = useState(
-    `${months[data.at(0)!.month]} ${data.at(0)!.year}`,
-  );
-
-  const onScrollPositionChange = () => {
-    const res = Object.entries(ref.current).reduce(
-      (previous: { value: string | null; max: number }, [k, v]) => {
-        const top = v.current?.getBoundingClientRect().top ?? 125;
-        if (top >= 125) return previous;
-        if (previous.max >= top) return previous;
-
-        const [yearString, monthString] = k.split("-");
-
-        return {
-          value: `${months[parseInt(monthString!)]} ${yearString}`,
-          max: top,
-        };
-      },
-      { value: null, max: -Infinity },
-    );
-    setActive(res.value ?? `${months[data.at(0)!.month]} ${data.at(0)!.year}`);
-  };
 
   return (
     <Stack spacing={0}>
       <Title order={4} align="start">
-        {active ? active : refKeys[0]}
+        {`${months[activeValue.month]} ${activeValue.year}`}
       </Title>
       <ScrollArea.Autosize
+        ref={wrapperRef}
         maxHeight="calc(100vh - var(--mantine-footer-height) - var(--mantine-header-height) - 64px)"
         onScrollPositionChange={onScrollPositionChange}
       >
@@ -78,7 +74,7 @@ const Page: NextPageWithLayout = () => {
           <PlanMonth
             isFirst={i === 0}
             lessons={m.lessons}
-            monthRef={ref.current[`${m.year}-${m.month}`]!}
+            monthRef={itemRefs.current[generateKey(m)]!}
           />
         ))}
       </ScrollArea.Autosize>
@@ -122,6 +118,13 @@ const exampleData: Lesson[] = [
     id: "3",
     title: "Something else",
     date: new Date("2023-04-21"),
+    start: 8 * 60,
+    end: 9 * 60 + 30,
+  },
+  {
+    id: "3",
+    title: "Test",
+    date: new Date("2022-12-26"),
     start: 8 * 60,
     end: 9 * 60 + 30,
   },

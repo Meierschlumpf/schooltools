@@ -1,4 +1,5 @@
-import { Group, Stack, Text, Title } from "@mantine/core";
+import { Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
+import { isToday } from "../../../helpers/date/isToday";
 import { Lesson, PlanLesson } from "./lesson";
 
 interface PlanDayProps {
@@ -6,13 +7,21 @@ interface PlanDayProps {
 }
 
 export const PlanDay = ({ lessons }: PlanDayProps) => {
+  const { colors } = useMantineTheme();
+  const firstLesson = lessons.at(0)!;
+
   return (
     <Group align="start">
       <Stack spacing={0} align="center">
         <Text color="dimmed" size="xs">
-          {day[lessons.at(0)!.date.getDay()]}
+          {day[firstLesson!.date.getDay()]}
         </Text>
-        <Title order={4}>{lessons.at(0)!.date.getDate()}</Title>
+        <Title
+          color={isToday(firstLesson.date) ? colors.indigo[3] : undefined}
+          order={4}
+        >
+          {firstLesson!.date.getDate()}
+        </Title>
       </Stack>
       <Stack style={{ flex: 1 }} spacing="xs">
         {lessons
