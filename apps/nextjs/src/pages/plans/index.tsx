@@ -20,7 +20,7 @@ import { NextPageWithLayout } from "../_app";
 const Page: NextPageWithLayout = () => {
   const { data: queryData } = trpc.plan.getAll.useQuery();
   const { scrollIntoView, targetRef, scrollableRef } = useScrollIntoView({
-    offset: 20,
+    offset: 32,
     duration: 0,
   });
 

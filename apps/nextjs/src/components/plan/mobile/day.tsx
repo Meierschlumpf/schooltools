@@ -13,9 +13,11 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
   const dayRef = useNextScheduleContext()?.dayRef;
   const nextScheduleDate = useNextScheduleContext()?.nextScheduleDate;
   const firstLesson = lessons.at(0)!;
+  const isNextScheduleDate =
+    firstLesson.date.getTime() === nextScheduleDate?.getTime();
 
   return (
-    <Group align="start">
+    <Group align="start" mt={isNextScheduleDate ? "sm" : undefined}>
       <Stack spacing={0} align="center">
         <Text color="dimmed" size="xs">
           {day[firstLesson!.date.getDay()]}
@@ -23,7 +25,7 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
         <Title
           color={isToday(firstLesson.date) ? colors.indigo[3] : undefined}
           ref={
-            firstLesson.date.getTime() === nextScheduleDate?.getTime()
+            isNextScheduleDate
               ? (dayRef as RefObject<HTMLHeadingElement>)
               : undefined
           }
@@ -32,7 +34,12 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
           {firstLesson!.date.getDate()}
         </Title>
       </Stack>
-      <Stack style={{ flex: 1 }} spacing="xs">
+      <Stack style={{ flex: 1 }} spacing="xs" pos="relative">
+        {isNextScheduleDate ? (
+          <Text pos="absolute" top={-20} size="sm" color="indigo">
+            Nächster Termin
+          </Text>
+        ) : null}
         {lessons
           .sort((a, b) => a.start - b.start)
           .map((l) => (
