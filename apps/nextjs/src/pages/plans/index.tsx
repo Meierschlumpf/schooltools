@@ -8,6 +8,7 @@ import {
 } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
 import { GetServerSideProps } from "next";
+import { useTranslation } from "next-i18next";
 import { createContext, MutableRefObject, useContext, useEffect } from "react";
 import { Lesson } from "../../components/plan/mobile/lesson";
 import { months, PlanMonth } from "../../components/plan/mobile/month";
@@ -18,6 +19,7 @@ import { trpc } from "../../utils/trpc";
 import { NextPageWithLayout } from "../_app";
 
 const Page: NextPageWithLayout = () => {
+  const { t } = useTranslation(["pages/plans/index", "common"]);
   const { data: queryData } = trpc.plan.getAll.useQuery();
   const { scrollIntoView, targetRef, scrollableRef } = useScrollIntoView({
     offset: 32,
@@ -83,7 +85,9 @@ const Page: NextPageWithLayout = () => {
       <Group position="apart" my="xs">
         <Title order={4} align="start">
           {activeValue.year ? (
-            `${months[activeValue.month]} ${activeValue.year}`
+            `${t(`common:month.${months[activeValue.month]}`)} ${
+              activeValue.year
+            }`
           ) : (
             <Skeleton height={26} width={110} radius="md" />
           )}
@@ -93,7 +97,7 @@ const Page: NextPageWithLayout = () => {
           compact
           onClick={() => scrollIntoView({ alignment: "start" })}
         >
-          Nächster Termin
+          {t("action.nextSchedule")}
         </Button>
       </Group>
       <ScrollArea.Autosize

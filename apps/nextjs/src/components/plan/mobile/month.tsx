@@ -1,4 +1,5 @@
 import { Stack, Title } from "@mantine/core";
+import { useTranslation } from "next-i18next";
 import { RefObject } from "react";
 import { PlanDay } from "./day";
 import { Lesson } from "./lesson";
@@ -10,14 +11,16 @@ interface PlanMonthProps {
 }
 
 export const PlanMonth = ({ lessons, isFirst, monthRef }: PlanMonthProps) => {
+  const { t } = useTranslation(["common"]);
   const month = lessons.at(0)!.date.getMonth();
   const year = lessons.at(0)!.date.getFullYear();
+  const monthLabel = `${t(`month.${months[month]}`)} ${year}`;
 
   return (
     <Stack spacing={4}>
       {!isFirst ? (
         <Title order={4} mt="sm" align="start" ref={monthRef}>
-          {months[month]} {year}
+          {monthLabel}
         </Title>
       ) : null}
       <Stack>
@@ -42,16 +45,16 @@ export const PlanMonth = ({ lessons, isFirst, monthRef }: PlanMonthProps) => {
 };
 
 export const months = [
-  "Januar",
-  "Februar",
-  "März",
-  "April",
-  "Mai",
-  "Juni",
-  "Juli",
-  "August",
-  "September",
-  "Oktober",
-  "November",
-  "Dezember",
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
 ];

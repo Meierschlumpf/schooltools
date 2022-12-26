@@ -1,4 +1,5 @@
 import { Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
+import { useTranslation } from "next-i18next";
 import { RefObject } from "react";
 import { isToday } from "../../../helpers/date/isToday";
 import { useNextScheduleContext } from "../../../pages/plans";
@@ -9,6 +10,7 @@ interface PlanDayProps {
 }
 
 export const PlanDay = ({ lessons }: PlanDayProps) => {
+  const { t } = useTranslation(["pages/plans/index", "common"]);
   const { colors } = useMantineTheme();
   const dayRef = useNextScheduleContext()?.dayRef;
   const nextScheduleDate = useNextScheduleContext()?.nextScheduleDate;
@@ -16,11 +18,13 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
   const isNextScheduleDate =
     firstLesson.date.getTime() === nextScheduleDate?.getTime();
 
+  const dayLabel = t(`common:weekDay.${day[firstLesson!.date.getDay()]}.short`);
+
   return (
     <Group align="start" mt={isNextScheduleDate ? "sm" : undefined}>
       <Stack spacing={0} align="center">
         <Text color="dimmed" size="xs">
-          {day[firstLesson!.date.getDay()]}
+          {dayLabel}
         </Text>
         <Title
           color={isToday(firstLesson.date) ? colors.indigo[3] : undefined}
@@ -37,7 +41,7 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
       <Stack style={{ flex: 1 }} spacing="xs" pos="relative">
         {isNextScheduleDate ? (
           <Text pos="absolute" top={-20} size="sm" color="indigo">
-            Nächster Termin
+            {t("action.nextSchedule")}
           </Text>
         ) : null}
         {lessons
@@ -50,4 +54,12 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
   );
 };
 
-const day = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+const day = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+];
