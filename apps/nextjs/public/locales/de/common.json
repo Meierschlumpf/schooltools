@@ -9,5 +9,49 @@
     "hour_other": "vor {{count}} Stunden",
     "day_one": "vor {{count}} Tag",
     "day_other": "vor {{count}} Tagen"
+  },
+  "month": {
+    "january": "Januar",
+    "february": "Februar",
+    "march": "März",
+    "april": "April",
+    "may": "Mai",
+    "june": "Juni",
+    "july": "Juli",
+    "august": "August",
+    "september": "September",
+    "october": "Oktober",
+    "november": "November",
+    "december": "Dezember"
+  },
+  "weekDay": {
+    "monday": {
+      "label": "Montag",
+      "short": "Mo"
+    },
+    "tuesday": {
+      "label": "Dienstag",
+      "short": "Di"
+    },
+    "wednesday": {
+      "label": "Mittwoch",
+      "short": "Mi"
+    },
+    "thursday": {
+      "label": "Donnerstag",
+      "short": "Do"
+    },
+    "friday": {
+      "label": "Freitag",
+      "short": "Fr"
+    },
+    "saturday": {
+      "label": "Samstag",
+      "short": "Sa"
+    },
+    "sunday": {
+      "label": "Sonntag",
+      "short": "So"
+    }
   }
 }

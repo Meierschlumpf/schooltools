@@ -11,6 +11,7 @@ export const i18nNamespaces = [
   ...defaultI18nNamespaces,
   "user/common",
   "pages/index",
+  "pages/plans/index",
 ] as const;
 
 export type i18nNamespaceType = typeof i18nNamespaces;
