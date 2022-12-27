@@ -2,6 +2,7 @@ import { Lesson } from "@acme/db";
 import { Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
 import { useTranslation } from "next-i18next";
 import { RefObject } from "react";
+import { days } from "../../../constants/date";
 import { isToday } from "../../../helpers/date/isToday";
 import { useNextScheduleContext } from "../../../pages/plans";
 import { PlanLesson } from "./mobile-lesson";
@@ -22,7 +23,7 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
   const isNextScheduleDate =
     firstLesson.date.getTime() === nextScheduleDate?.getTime();
 
-  const dayLabel = t(`common:weekDay.${day[firstLesson.date.getDay()]}.short`);
+  const dayLabel = t(`common:weekDay.${days[firstLesson.date.getDay()]}.short`);
 
   return (
     <Group align="start" mt={isNextScheduleDate ? "sm" : undefined}>
@@ -57,13 +58,3 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
     </Group>
   );
 };
-
-const day = [
-  "sunday",
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-];
