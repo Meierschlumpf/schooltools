@@ -1,4 +1,6 @@
+import { Lesson } from "@acme/db";
 import { Card, Group, Text } from "@mantine/core";
+import { getTimeByNumber } from "../../../helpers/date/getTimeByNumber";
 
 interface PlanLessonProps {
   lesson: Lesson;
@@ -17,20 +19,4 @@ export const PlanLesson = ({ lesson }: PlanLessonProps) => {
       </Group>
     </Card>
   );
-};
-
-const getTimeByNumber = (number: number) => {
-  const hour = Math.floor(number / 60);
-  const minute = number % 60;
-  const hourString = hour <= 9 ? `0${hour}` : hour.toString();
-  const minuteString = minute <= 9 ? `0${minute}` : minute.toString();
-  return `${hourString}:${minuteString}`;
-};
-
-export type Lesson = {
-  id: string;
-  title: string | null;
-  date: Date;
-  start: number;
-  end: number;
 };

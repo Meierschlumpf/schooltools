@@ -1,3 +1,4 @@
+import { Lesson } from "@acme/db";
 import {
   Button,
   Group,
@@ -10,8 +11,8 @@ import { useScrollIntoView } from "@mantine/hooks";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { createContext, MutableRefObject, useContext, useEffect } from "react";
-import { Lesson } from "../../components/plan/mobile/lesson";
-import { months, PlanMonth } from "../../components/plan/mobile/month";
+import { PlanMonth } from "../../components/plan/mobile/plan-mobile-month";
+import { months } from "../../constants/date";
 import { i18nGetServerSideProps } from "../../helpers/i18nGetServerSidePropsMiddleware";
 import { useActiveValue } from "../../hooks/useActiveValue";
 import { MobileLayout } from "../../layout/mobile/mobile-layout";
@@ -52,7 +53,7 @@ const Page: NextPageWithLayout = () => {
       return n !== 0 ? n : a.month - b.month;
     });
 
-  const firstItem = data.at(0)!;
+  const firstItem = data.at(0);
   const { itemRefs, wrapperRef, updateActiveValue, activeValue, generateKey } =
     useActiveValue({
       data,
@@ -65,6 +66,7 @@ const Page: NextPageWithLayout = () => {
       },
       parseKey(key) {
         const [yearString, monthString] = key.split("-");
+        if (!yearString || !monthString) return null;
         return {
           year: parseInt(yearString!),
           month: parseInt(monthString!),
@@ -73,9 +75,11 @@ const Page: NextPageWithLayout = () => {
     });
 
   useEffect(() => {
-    if (!data || activeValue.year) return;
+    if (!data || activeValue?.year) return;
     updateActiveValue();
   }, [data]);
+
+  if (!firstItem) return null;
 
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -84,7 +88,7 @@ const Page: NextPageWithLayout = () => {
     <Stack spacing={0}>
       <Group position="apart" my="xs">
         <Title order={4} align="start">
-          {activeValue.year ? (
+          {activeValue?.year != undefined && activeValue.month != undefined ? (
             `${t(`common:month.${months[activeValue.month]}`)} ${
               activeValue.year
             }`
@@ -118,6 +122,7 @@ const Page: NextPageWithLayout = () => {
         >
           {data.map((m, i) => (
             <PlanMonth
+              key={generateKey(m)}
               isFirst={i === 0}
               lessons={m.lessons}
               monthRef={itemRefs.current[generateKey(m)]!}

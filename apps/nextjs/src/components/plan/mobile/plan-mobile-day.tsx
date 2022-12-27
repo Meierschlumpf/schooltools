@@ -1,9 +1,10 @@
+import { Lesson } from "@acme/db";
 import { Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
 import { useTranslation } from "next-i18next";
 import { RefObject } from "react";
 import { isToday } from "../../../helpers/date/isToday";
 import { useNextScheduleContext } from "../../../pages/plans";
-import { Lesson, PlanLesson } from "./lesson";
+import { PlanLesson } from "./mobile-lesson";
 
 interface PlanDayProps {
   lessons: Lesson[];
@@ -14,11 +15,14 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
   const { colors } = useMantineTheme();
   const dayRef = useNextScheduleContext()?.dayRef;
   const nextScheduleDate = useNextScheduleContext()?.nextScheduleDate;
-  const firstLesson = lessons.at(0)!;
+  const firstLesson = lessons.at(0);
+
+  if (!firstLesson) return null;
+
   const isNextScheduleDate =
     firstLesson.date.getTime() === nextScheduleDate?.getTime();
 
-  const dayLabel = t(`common:weekDay.${day[firstLesson!.date.getDay()]}.short`);
+  const dayLabel = t(`common:weekDay.${day[firstLesson.date.getDay()]}.short`);
 
   return (
     <Group align="start" mt={isNextScheduleDate ? "sm" : undefined}>
@@ -35,7 +39,7 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
           }
           order={4}
         >
-          {firstLesson!.date.getDate()}
+          {firstLesson.date.getDate()}
         </Title>
       </Stack>
       <Stack style={{ flex: 1 }} spacing="xs" pos="relative">
