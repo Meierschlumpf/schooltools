@@ -1,0 +1,13 @@
+{
+  "role": {
+    "apprentice": {
+      "label": "Apprentice"
+    },
+    "teacher": {
+      "label": "Teacher"
+    },
+    "admin": {
+      "label": "Admin"
+    }
+  }
+}

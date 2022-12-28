@@ -1,0 +1,57 @@
+{
+  "timeAgo": {
+    "justNow": "jetzt gerade",
+    "second_one": "vor {{count}} Sekunde",
+    "second_other": "vor {{count}} Sekunden",
+    "minute_one": "vor {{count}} Minute",
+    "minute_other": "vor {{count}} Minuten",
+    "hour_one": "vor {{count}} Stunde",
+    "hour_other": "vor {{count}} Stunden",
+    "day_one": "vor {{count}} Tag",
+    "day_other": "vor {{count}} Tagen"
+  },
+  "month": {
+    "january": "Januar",
+    "february": "Februar",
+    "march": "März",
+    "april": "April",
+    "may": "Mai",
+    "june": "Juni",
+    "july": "Juli",
+    "august": "August",
+    "september": "September",
+    "october": "Oktober",
+    "november": "November",
+    "december": "Dezember"
+  },
+  "weekDay": {
+    "monday": {
+      "label": "Montag",
+      "short": "Mo"
+    },
+    "tuesday": {
+      "label": "Dienstag",
+      "short": "Di"
+    },
+    "wednesday": {
+      "label": "Mittwoch",
+      "short": "Mi"
+    },
+    "thursday": {
+      "label": "Donnerstag",
+      "short": "Do"
+    },
+    "friday": {
+      "label": "Freitag",
+      "short": "Fr"
+    },
+    "saturday": {
+      "label": "Samstag",
+      "short": "Sa"
+    },
+    "sunday": {
+      "label": "Sonntag",
+      "short": "So"
+    }
+  }
+}

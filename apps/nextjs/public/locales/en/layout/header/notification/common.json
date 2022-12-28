@@ -1,0 +1,8 @@
+{
+  "title": "Notifications",
+  "chip": {
+    "all": "All",
+    "task": "Tasks",
+    "assessment": "Assessments"
+  }
+}
