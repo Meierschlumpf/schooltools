@@ -3,8 +3,8 @@ import { Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
 import { useTranslation } from "next-i18next";
 import { RefObject } from "react";
 import { days } from "../../../constants/date";
+import { useNextScheduleContext } from "../../../contexts/next-schedule-context";
 import { isToday } from "../../../helpers/date/isToday";
-import { useNextScheduleContext } from "../../../pages/plans";
 import { PlanLesson } from "./mobile-lesson";
 
 interface PlanDayProps {
