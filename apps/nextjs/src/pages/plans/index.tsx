@@ -1,4 +1,5 @@
 import { Lesson } from "@acme/db";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import {
   Button,
   Group,
@@ -10,7 +11,7 @@ import {
 import { useScrollIntoView } from "@mantine/hooks";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
-import { createContext, MutableRefObject, useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { PlanMonth } from "../../components/plan/mobile/plan-mobile-month";
 import { months } from "../../constants/date";
 import { i18nGetServerSideProps } from "../../helpers/i18nGetServerSidePropsMiddleware";
@@ -18,7 +19,10 @@ import { useActiveValue } from "../../hooks/useActiveValue";
 import { MobileLayout } from "../../layout/mobile/mobile-layout";
 import { trpc } from "../../utils/trpc";
 import { NextPageWithLayout } from "../_app";
+import { appRouter, createContext } from "@acme/api";
+import { NextScheduleContext } from "../../contexts/next-schedule-context";
 
+import superjson from "superjson";
 const Page: NextPageWithLayout = () => {
   const { t } = useTranslation(["pages/plans/index", "common"]);
   const { data: queryData } = trpc.plan.getAll.useQuery();
@@ -141,8 +145,20 @@ Page.getLayout = (page) => {
 export default Page;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const ssg = createProxySSGHelpers({
+    router: appRouter,
+    ctx: await createContext({
+      req: context.req as any,
+      res: context.res as any,
+    }),
+    transformer: superjson,
+  });
+
+  await ssg.plan.getAll.prefetch();
+
   return {
     props: {
+      trpcState: ssg.dehydrate(),
       ...(await i18nGetServerSideProps(context, [
         "pages/plans/index",
         "user/common",
@@ -150,14 +166,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 };
-
-interface NextScheduleContextProps {
-  nextScheduleDate: Date;
-  dayRef: MutableRefObject<HTMLElement>;
-}
-
-const NextScheduleContext = createContext<NextScheduleContextProps | null>(
-  null,
-);
-
-export const useNextScheduleContext = () => useContext(NextScheduleContext);
