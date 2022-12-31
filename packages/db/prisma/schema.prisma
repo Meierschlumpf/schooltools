@@ -60,9 +60,19 @@ model VerificationToken {
 }
 
 model Lesson {
-    id    String   @id @default(cuid())
-    title String?  @db.Text()
-    date  DateTime
-    start Int      @db.SmallInt()
-    end   Int      @db.SmallInt()
+    id     String   @id @default(cuid())
+    title  String?  @db.Text()
+    date   DateTime
+    start  Int?     @db.SmallInt()
+    end    Int?     @db.SmallInt()
+    planId String
+    plan   Plan     @relation(fields: [planId], references: [id])
+}
+
+model Plan {
+    id                 String   @id @default(cuid())
+    weekDay            Int      @db.SmallInt()
+    defaultLessonStart Int      @db.SmallInt()
+    defaultLessonEnd   Int      @db.SmallInt()
+    lessons            Lesson[]
 }
