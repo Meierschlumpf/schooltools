@@ -26,11 +26,10 @@ export const planRouter = router({
       },
     });
 
-    return lessons.map((lesson) => ({
+    return lessons.map(({ plan, ...lesson }) => ({
       ...lesson,
-      start: lesson.start ?? lesson.plan.defaultLessonStart,
-      end: lesson.end ?? lesson.plan.defaultLessonEnd,
-      plan: undefined,
+      start: lesson.start ?? plan.defaultLessonStart,
+      end: lesson.end ?? plan.defaultLessonEnd,
     }));
   }),
 });
