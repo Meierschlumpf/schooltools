@@ -75,4 +75,13 @@ model Plan {
     defaultLessonStart Int      @db.SmallInt()
     defaultLessonEnd   Int      @db.SmallInt()
     lessons            Lesson[]
+    semesterId         String
+    semester           Semester @relation(fields: [semesterId], references: [id])
+}
+
+model Semester {
+    id    String   @id @default(cuid())
+    start DateTime
+    end   DateTime
+    plans Plan[]
 }
