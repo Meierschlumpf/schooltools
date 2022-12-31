@@ -1,14 +1,14 @@
-import { Lesson } from "@acme/db";
 import { Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
 import { useTranslation } from "next-i18next";
 import { RefObject } from "react";
 import { days } from "../../../constants/date";
 import { useNextScheduleContext } from "../../../contexts/next-schedule-context";
 import { isToday } from "../../../helpers/date/isToday";
+import { RouterOutputs } from "../../../utils/trpc";
 import { PlanLesson } from "./mobile-lesson";
 
 interface PlanDayProps {
-  lessons: Lesson[];
+  lessons: RouterOutputs["plan"]["currentSchoolYear"];
 }
 
 export const PlanDay = ({ lessons }: PlanDayProps) => {

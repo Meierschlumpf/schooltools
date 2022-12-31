@@ -1,9 +1,9 @@
-import { Lesson } from "@acme/db";
 import { Card, Group, Text } from "@mantine/core";
 import { getTimeByNumber } from "../../../helpers/date/getTimeByNumber";
+import { RouterOutputs } from "../../../utils/trpc";
 
 interface PlanLessonProps {
-  lesson: Lesson;
+  lesson: RouterOutputs["plan"]["currentSchoolYear"][number];
 }
 
 export const PlanLesson = ({ lesson }: PlanLessonProps) => {
