@@ -1,5 +1,4 @@
-import { Lesson } from "@acme/db";
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
+import { appRouter, createContext } from "@acme/api";
 import {
   Button,
   Group,
@@ -9,18 +8,18 @@ import {
   Title,
 } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
+import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { useEffect } from "react";
 import { PlanMonth } from "../../components/plan/mobile/plan-mobile-month";
 import { months } from "../../constants/date";
+import { NextScheduleContext } from "../../contexts/next-schedule-context";
 import { i18nGetServerSideProps } from "../../helpers/i18nGetServerSidePropsMiddleware";
 import { useActiveValue } from "../../hooks/useActiveValue";
 import { MobileLayout } from "../../layout/mobile/mobile-layout";
-import { trpc } from "../../utils/trpc";
+import { RouterOutputs, trpc } from "../../utils/trpc";
 import { NextPageWithLayout } from "../_app";
-import { appRouter, createContext } from "@acme/api";
-import { NextScheduleContext } from "../../contexts/next-schedule-context";
 
 import superjson from "superjson";
 const Page: NextPageWithLayout = () => {
@@ -33,7 +32,14 @@ const Page: NextPageWithLayout = () => {
 
   const data = (queryData ?? [])
     .reduce(
-      (prev: { year: number; month: number; lessons: Lesson[] }[], curr) => {
+      (
+        prev: {
+          year: number;
+          month: number;
+          lessons: RouterOutputs["plan"]["currentSchoolYear"];
+        }[],
+        curr,
+      ) => {
         const index = prev.findIndex(
           (x) =>
             x.year === curr.date.getFullYear() &&
@@ -72,8 +78,8 @@ const Page: NextPageWithLayout = () => {
         const [yearString, monthString] = key.split("-");
         if (!yearString || !monthString) return null;
         return {
-          year: parseInt(yearString!),
-          month: parseInt(monthString!),
+          year: parseInt(yearString),
+          month: parseInt(monthString),
         };
       },
     });
