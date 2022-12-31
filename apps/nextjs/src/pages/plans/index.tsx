@@ -25,7 +25,7 @@ import { NextScheduleContext } from "../../contexts/next-schedule-context";
 import superjson from "superjson";
 const Page: NextPageWithLayout = () => {
   const { t } = useTranslation(["pages/plans/index", "common"]);
-  const { data: queryData } = trpc.plan.getAll.useQuery();
+  const { data: queryData } = trpc.plan.currentSchoolYear.useQuery();
   const { scrollIntoView, targetRef, scrollableRef } = useScrollIntoView({
     offset: 32,
     duration: 0,
@@ -154,7 +154,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     transformer: superjson,
   });
 
-  await ssg.plan.getAll.prefetch();
+  await ssg.plan.currentSchoolYear.prefetch();
 
   return {
     props: {
