@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { SCHOOLYEAR_END, SCHOOLYEAR_START } from "../constants";
 import { publicProcedure, router } from "../trpc";
 
@@ -32,6 +33,24 @@ export const planRouter = router({
       end: lesson.end ?? plan.defaultLessonEnd,
     }));
   }),
+  create: publicProcedure
+    .input(
+      z.object({
+        semesterId: z.string().max(24),
+        weekDay: z.number().min(1).max(6),
+        start: z
+          .number()
+          .positive()
+          .max(24 * 60),
+        end: z
+          .number()
+          .positive()
+          .max(24 * 60),
+      }),
+    )
+    .mutation(async ({ ctx }) => {
+      //throw new Error();
+    }),
 });
 
 const getCurrentSchoolYearStart = () => {
