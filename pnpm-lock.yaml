@@ -83,7 +83,7 @@ importers:
       '@emotion/server': ^11.4.0
       '@mantine/core': ^5.9.5
       '@mantine/dates': ^5.9.5
-      '@mantine/form': ^5.9.6
+      '@mantine/form': ^5.9.5
       '@mantine/hooks': ^5.9.5
       '@mantine/modals': ^5.9.5
       '@mantine/next': ^5.9.5
@@ -3017,7 +3017,7 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
+      '@tanstack/react-query': 4.20.4_slnhbjkuf3cktqrwdgz34rrasq
       '@trpc/client': 10.5.0_@trpc+server@10.5.0
       '@trpc/server': 10.5.0
       react: 18.2.0

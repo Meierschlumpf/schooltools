@@ -1,6 +1,6 @@
 import { Button, Grid, Group, Loader, Select, Stack, Title } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
-import { useForm, zodResolver } from "@mantine/form";
+import { useForm, zodResolver, createFormContext } from "@mantine/form";
 import { closeModal, ContextModalProps } from "@mantine/modals";
 import { NotificationProps, showNotification } from "@mantine/notifications";
 import { TRPCClientErrorLike } from "@trpc/client";
@@ -43,61 +43,64 @@ export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string
     );
   };
 
+  console.log(form.getInputProps("weekDay"));
+
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack>
-        <Grid>
-          <Grid.Col span={12}>
-            <Select
-              data-autofocus
-              placeholder="Bitte das Semester auswählen..."
-              data={
-                semesters?.map((x) => ({
-                  value: x.id,
-                  label: x.start.getMonth() === 1 ? `Feb. ${x.start.getFullYear()}` : `Aug. ${x.start.getFullYear()}`,
-                })) ?? []
-              }
-              label="Semester"
-              {...form.getInputProps("semesterId")}
-              icon={semestersQuery.isLoading ? <Loader size="xs" /> : null}
-            />
-          </Grid.Col>
-          <Grid.Col span={12}>
-            <Select
-              placeholder="Bitte den Schultag auswählen..."
-              {...form.getInputProps("weekDay")}
-              selectOnBlur
-              data={days.slice(1).map((d, i) => ({
-                value: (i + 1).toString(), // 1, 2, 3, 4, 5, 6
-                label: t(`common:weekDay.${d}.label`),
-              }))}
-              label="Schultag"
-            />
-          </Grid.Col>
-          <Grid.Col span={12}>
-            <TimeInput
-              {...form.getInputProps("start")}
-              onChange={(v) => {
-                const end = new Date(v.getFullYear(), v.getMonth(), v.getDate(), v.getHours(), v.getMinutes() + 90);
-                form.setFieldValue("end", end);
-                form.getInputProps("start").onChange(v);
-              }}
-              label="Beginn der Lektion"
-            />
-          </Grid.Col>
-          <Grid.Col span={12}>
-            <TimeInput {...form.getInputProps("end")} label="Ende der Lektion" />
-          </Grid.Col>
-        </Grid>
-        <Group position="right" spacing="xs">
-          <Button variant="subtle" onClick={handleClose} disabled={isLoading}>
-            Abbrechen
-          </Button>
-          <Button type="submit" disabled={isLoading} loading={isLoading} loaderPosition="right">
-            Erstellen
-          </Button>
-        </Group>
-      </Stack>
+      <FormProvider form={form}>
+        <Stack>
+          <Grid>
+            <Grid.Col span={12}>
+              <Select
+                data-autofocus
+                placeholder="Bitte das Semester auswählen..."
+                data={
+                  semesters?.map((x) => ({
+                    value: x.id,
+                    label: x.start.getMonth() === 1 ? `Feb. ${x.start.getFullYear()}` : `Aug. ${x.start.getFullYear()}`,
+                  })) ?? []
+                }
+                label="Semester"
+                {...form.getInputProps("semesterId")}
+                icon={semestersQuery.isLoading ? <Loader size="xs" /> : null}
+              />
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <Select
+                placeholder="Bitte den Schultag auswählen..."
+                {...form.getInputProps("weekDay")}
+                data={days.slice(1).map((d, i) => ({
+                  value: (i + 1).toString(), // 1, 2, 3, 4, 5, 6
+                  label: t(`common:weekDay.${d}.label`),
+                }))}
+                label="Schultag"
+              />
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <TimeInput
+                {...form.getInputProps("start")}
+                onChange={(v) => {
+                  const end = new Date(v.getFullYear(), v.getMonth(), v.getDate(), v.getHours(), v.getMinutes() + 90);
+                  form.setFieldValue("end", end);
+                  form.getInputProps("start").onChange(v);
+                }}
+                label="Beginn der Lektion"
+              />
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <TimeInput {...form.getInputProps("end")} label="Ende der Lektion" />
+            </Grid.Col>
+          </Grid>
+          <Group position="right" spacing="xs">
+            <Button variant="subtle" onClick={handleClose} disabled={isLoading}>
+              Abbrechen
+            </Button>
+            <Button type="submit" disabled={isLoading} loading={isLoading} loaderPosition="right">
+              Erstellen
+            </Button>
+          </Group>
+        </Stack>
+      </FormProvider>
     </form>
   );
 };
@@ -192,3 +195,5 @@ const trpcGenericErrorHandler = (error: TRPCClientErrorLike<any>) => {
     showServerErrorNotification();
   }
 };
+
+export const [FormProvider, useFormContext, _] = createFormContext<any>();
