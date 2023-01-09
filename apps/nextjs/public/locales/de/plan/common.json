@@ -1,0 +1,18 @@
+{
+  "property": {
+    "semesterId": {
+      "label": "Semester",
+      "placeholder": "Bitte das Semester auswählen..."
+    },
+    "weekDay": {
+      "label": "Schultag",
+      "placeholder": "Bitte den Schultag auswählen..."
+    },
+    "start": {
+      "label": "Beginn der Lektion"
+    },
+    "end": {
+      "label": "Ende der Lektion"
+    }
+  }
+}

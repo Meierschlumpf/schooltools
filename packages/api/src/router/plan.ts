@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { SCHOOLYEAR_END, SCHOOLYEAR_START } from "../constants";
 import { publicProcedure, router } from "../trpc";
@@ -48,8 +49,26 @@ export const planRouter = router({
           .max(24 * 60),
       }),
     )
-    .mutation(async ({ ctx }) => {
-      //throw new Error();
+    .mutation(async ({ ctx, input }) => {
+      if (input.start >= input.end) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Start should not be greater than end",
+        });
+      }
+
+      // TODO: check if it already exists
+
+      const res = await ctx.prisma.plan.create({
+        data: {
+          semesterId: input.semesterId,
+          weekDay: input.weekDay,
+          defaultLessonStart: input.start,
+          defaultLessonEnd: input.end,
+        },
+      });
+
+      return res;
     }),
 });
 
@@ -65,24 +84,8 @@ const getCurrentSchoolYearStart = () => {
 const getCurrentSchoolYearEnd = () => {
   const now = new Date();
   const [month, day] = SCHOOLYEAR_END;
-  const thisYearEnd = new Date(
-    now.getFullYear(),
-    month - 1,
-    day,
-    23,
-    59,
-    59,
-    999,
-  );
-  const nextYearEnd = new Date(
-    now.getFullYear() + 1,
-    month - 1,
-    day,
-    23,
-    59,
-    59,
-    999,
-  );
+  const thisYearEnd = new Date(now.getFullYear(), month - 1, day, 23, 59, 59, 999);
+  const nextYearEnd = new Date(now.getFullYear() + 1, month - 1, day, 23, 59, 59, 999);
 
   return now < thisYearEnd ? thisYearEnd : nextYearEnd;
 };

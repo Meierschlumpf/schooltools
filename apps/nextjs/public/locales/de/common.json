@@ -11,18 +11,54 @@
     "day_other": "vor {{count}} Tagen"
   },
   "month": {
-    "january": "Januar",
-    "february": "Februar",
-    "march": "März",
-    "april": "April",
-    "may": "Mai",
-    "june": "Juni",
-    "july": "Juli",
-    "august": "August",
-    "september": "September",
-    "october": "Oktober",
-    "november": "November",
-    "december": "Dezember"
+    "january": {
+      "label": "Januar",
+      "short": "Jan"
+    },
+    "february": {
+      "label": "Februar",
+      "short": "Feb"
+    },
+    "march": {
+      "label": "März",
+      "short": "Mrz"
+    },
+    "april": {
+      "label": "April",
+      "short": "Apr"
+    },
+    "may": {
+      "label": "Mai",
+      "short": "Mai"
+    },
+    "june": {
+      "label": "Juni",
+      "short": "Jun"
+    },
+    "july": {
+      "label": "Juli",
+      "short": "Jul"
+    },
+    "august": {
+      "label": "August",
+      "short": "Aug"
+    },
+    "september": {
+      "label": "September",
+      "short": "Sept"
+    },
+    "october": {
+      "label": "Oktober",
+      "short": "Okt"
+    },
+    "november": {
+      "label": "November",
+      "short": "Nov"
+    },
+    "december": {
+      "label": "Dezember",
+      "short": "Dez"
+    }
   },
   "weekDay": {
     "monday": {
@@ -53,5 +89,9 @@
       "label": "Sonntag",
       "short": "So"
     }
+  },
+  "action": {
+    "create": "Erstellen",
+    "cancel": "Abbrechen"
   }
 }

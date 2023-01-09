@@ -16,6 +16,7 @@ import { FormTimeInput } from "../common/dates/time-input";
 import { openModal } from "../mantine/modals";
 
 export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string, never>>) => {
+  const { t } = useTranslation();
   const form = useForm<FormType>({
     validate: zodResolver(validationSchema),
     validateInputOnBlur: true,
@@ -37,10 +38,14 @@ export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string
       },
       {
         onError: trpcGenericErrorHandler,
-        onSuccess() {
+        onSuccess(data) {
           showSuccessNotification({
             title: "Semesterplan erstellt",
             message: "Der Semesterplan wurde erfolgreich erstellt",
+          });
+          showSuccessNotification({
+            title: "Details",
+            message: `Id: ${data.id}`,
           });
           handleClose();
         },
@@ -57,10 +62,10 @@ export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string
         <Stack>
           <Grid>
             <Grid.Col span={12}>
-              <FormSelect<FormType> data-autofocus name="semesterId" placeholder="Bitte das Semester auswählen..." label="Semester" {...semesterSelectProps} />
+              <FormSelect<FormType> data-autofocus name="semesterId" translationPath="plan/common:property.semesterId" {...semesterSelectProps} />
             </Grid.Col>
             <Grid.Col span={12}>
-              <FormSelect<FormType> name="weekDay" data={weekDayData} placeholder="Bitte den Schultag auswählen..." label="Schultag" />
+              <FormSelect<FormType> name="weekDay" data={weekDayData} translationPath="plan/common:property.weekDay" />
             </Grid.Col>
             <Grid.Col span={12}>
               <FormTimeInput<FormType>
@@ -68,19 +73,19 @@ export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string
                 onChange={(v) => {
                   form.setFieldValue("end", addMinutes(v, 90));
                 }}
-                label="Beginn der Lektion"
+                translationPath="plan/common:property.start"
               />
             </Grid.Col>
             <Grid.Col span={12}>
-              <FormTimeInput<FormType> name="end" label="Ende der Lektion" />
+              <FormTimeInput<FormType> name="end" translationPath="plan/common:property.end" />
             </Grid.Col>
           </Grid>
           <Group position="right" spacing="xs">
             <Button variant="subtle" onClick={handleClose} disabled={isLoading}>
-              Abbrechen
+              {t("common:action.cancel")}
             </Button>
             <Button type="submit" disabled={isLoading} loading={isLoading} loaderPosition="right">
-              Erstellen
+              {t("common:action.create")}
             </Button>
           </Group>
         </Stack>
@@ -90,15 +95,16 @@ export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string
 };
 
 const useSemesterSelectQuery = () => {
+  const { t } = useTranslation();
   const { data: semesters, isLoading } = trpc.semester.future.useQuery();
 
   const mappedData = useMemo(
     () =>
       semesters?.map((x) => ({
         value: x.id,
-        label: x.start.getMonth() === 1 ? `Feb. ${x.start.getFullYear()}` : `Aug. ${x.start.getFullYear()}`,
+        label: x.start.getMonth() === 1 ? `${t("month.february.short")}. ${x.start.getFullYear()}` : `${t("month.august.short")}. ${x.start.getFullYear()}`,
       })) ?? [],
-    [semesters],
+    [semesters, t],
   );
 
   const icon = isLoading ? <Loader size="xs" /> : null;
