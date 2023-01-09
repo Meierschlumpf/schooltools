@@ -1,22 +1,27 @@
-import { Button, Grid, Group, Loader, Select, Stack, Title } from "@mantine/core";
-import { TimeInput } from "@mantine/dates";
-import { useForm, zodResolver, createFormContext } from "@mantine/form";
+import { Button, Grid, Group, Loader, Stack, Title } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
 import { closeModal, ContextModalProps } from "@mantine/modals";
-import { NotificationProps, showNotification } from "@mantine/notifications";
-import { TRPCClientErrorLike } from "@trpc/client";
 import { useTranslation } from "next-i18next";
+import { useMemo } from "react";
 import { z } from "zod";
 import { days } from "../../constants/date";
+import { FormProvider } from "../../contexts/form";
+import { addMinutes } from "../../helpers/date/addMinutes";
+import { dateToMinutes } from "../../helpers/date/dateToMinutes";
+import { showSuccessNotification } from "../../helpers/notifications";
+import { trpcGenericErrorHandler } from "../../helpers/trpc";
 import { trpc } from "../../utils/trpc";
+import { FormSelect } from "../common/core/inputs/select";
+import { FormTimeInput } from "../common/dates/time-input";
 import { openModal } from "../mantine/modals";
 
 export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string, never>>) => {
-  const { t } = useTranslation();
   const form = useForm<FormType>({
     validate: zodResolver(validationSchema),
+    validateInputOnBlur: true,
+    validateInputOnChange: ["end"],
   });
   const { mutateAsync: createAsync, isLoading } = trpc.plan.create.useMutation();
-  const { data: semesters, ...semestersQuery } = trpc.semester.future.useQuery();
 
   const handleClose = () => {
     context.closeModal(id);
@@ -43,7 +48,8 @@ export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string
     );
   };
 
-  console.log(form.getInputProps("weekDay"));
+  const semesterSelectProps = useSemesterSelectQuery();
+  const weekDayData = useWeekDayData();
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -51,44 +57,22 @@ export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string
         <Stack>
           <Grid>
             <Grid.Col span={12}>
-              <Select
-                data-autofocus
-                placeholder="Bitte das Semester auswählen..."
-                data={
-                  semesters?.map((x) => ({
-                    value: x.id,
-                    label: x.start.getMonth() === 1 ? `Feb. ${x.start.getFullYear()}` : `Aug. ${x.start.getFullYear()}`,
-                  })) ?? []
-                }
-                label="Semester"
-                {...form.getInputProps("semesterId")}
-                icon={semestersQuery.isLoading ? <Loader size="xs" /> : null}
-              />
+              <FormSelect<FormType> data-autofocus name="semesterId" placeholder="Bitte das Semester auswählen..." label="Semester" {...semesterSelectProps} />
             </Grid.Col>
             <Grid.Col span={12}>
-              <Select
-                placeholder="Bitte den Schultag auswählen..."
-                {...form.getInputProps("weekDay")}
-                data={days.slice(1).map((d, i) => ({
-                  value: (i + 1).toString(), // 1, 2, 3, 4, 5, 6
-                  label: t(`common:weekDay.${d}.label`),
-                }))}
-                label="Schultag"
-              />
+              <FormSelect<FormType> name="weekDay" data={weekDayData} placeholder="Bitte den Schultag auswählen..." label="Schultag" />
             </Grid.Col>
             <Grid.Col span={12}>
-              <TimeInput
-                {...form.getInputProps("start")}
+              <FormTimeInput<FormType>
+                name="start"
                 onChange={(v) => {
-                  const end = new Date(v.getFullYear(), v.getMonth(), v.getDate(), v.getHours(), v.getMinutes() + 90);
-                  form.setFieldValue("end", end);
-                  form.getInputProps("start").onChange(v);
+                  form.setFieldValue("end", addMinutes(v, 90));
                 }}
                 label="Beginn der Lektion"
               />
             </Grid.Col>
             <Grid.Col span={12}>
-              <TimeInput {...form.getInputProps("end")} label="Ende der Lektion" />
+              <FormTimeInput<FormType> name="end" label="Ende der Lektion" />
             </Grid.Col>
           </Grid>
           <Group position="right" spacing="xs">
@@ -103,6 +87,34 @@ export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string
       </FormProvider>
     </form>
   );
+};
+
+const useSemesterSelectQuery = () => {
+  const { data: semesters, isLoading } = trpc.semester.future.useQuery();
+
+  const mappedData = useMemo(
+    () =>
+      semesters?.map((x) => ({
+        value: x.id,
+        label: x.start.getMonth() === 1 ? `Feb. ${x.start.getFullYear()}` : `Aug. ${x.start.getFullYear()}`,
+      })) ?? [],
+    [semesters],
+  );
+
+  const icon = isLoading ? <Loader size="xs" /> : null;
+
+  return {
+    data: mappedData,
+    icon,
+  };
+};
+
+const useWeekDayData = () => {
+  const { t } = useTranslation();
+  return days.slice(1).map((d, i) => ({
+    value: (i + 1).toString(), // 1, 2, 3, 4, 5, 6
+    label: t(`common:weekDay.${d}.label`),
+  }));
 };
 
 export const useCreatePlanModal = () => {
@@ -126,6 +138,7 @@ interface FormType {
   weekDay?: string;
   start?: Date;
   end?: Date;
+  test?: boolean;
 }
 
 const validationSchema = z
@@ -153,47 +166,3 @@ const validationSchema = z
         .regex(/\d/),
     }),
   );
-
-const dateToMinutes = (date: Date) => {
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  return hours * 60 + minutes;
-};
-
-const showValidationErrorNotification = () => {
-  showErrorNotification({
-    title: "Validierungsfehler",
-    message: "Bitte überprüfen sie Ihre Eingabe",
-  });
-};
-
-const showServerErrorNotification = () => {
-  showErrorNotification({
-    title: "Serverfehler",
-    message: "Ooups! Da ging wohl was schief.",
-  });
-};
-
-const showErrorNotification = (props: NotificationProps) => {
-  showNotification({
-    ...props,
-    color: "red",
-  });
-};
-
-const showSuccessNotification = (props: NotificationProps) => {
-  showNotification({
-    ...props,
-    color: "teal",
-  });
-};
-
-const trpcGenericErrorHandler = (error: TRPCClientErrorLike<any>) => {
-  if (error.data?.code === "BAD_REQUEST") {
-    showValidationErrorNotification();
-  } else {
-    showServerErrorNotification();
-  }
-};
-
-export const [FormProvider, useFormContext, _] = createFormContext<any>();

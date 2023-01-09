@@ -8,7 +8,7 @@ const Page = () => {
 
   return (
     <Center h="100vh">
-      <Button onClick={open} variant="filled" color="indigo">
+      <Button onClick={open} variant="filled">
         Open Modal
       </Button>
     </Center>

@@ -1,0 +1,8 @@
+{
+  "common": {
+    "required": "Dieses Feld wird benötigt."
+  },
+  "plan": {
+    "endSmallerThanStart": "Der Beginn sollte vor dem Ende liegen."
+  }
+}
