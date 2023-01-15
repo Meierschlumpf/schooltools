@@ -14,5 +14,24 @@
     "end": {
       "label": "Ende der Lektion"
     }
+  },
+  "notification": {
+    "create": {
+      "success": {
+        "title": "Semesterplan erstellt",
+        "message": "Der Semesterplan wurde erfolgreich erstellt"
+      },
+      "error": {
+        "exist": {
+          "title": "Semesterplan vorhanden",
+          "message": "Dieser Semesterplan ist bereits vorhanden"
+        }
+      }
+    }
+  },
+  "modal": {
+    "create": {
+      "title": "Semesterplan erstellen"
+    }
   }
 }

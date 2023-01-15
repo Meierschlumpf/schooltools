@@ -93,5 +93,15 @@
   "action": {
     "create": "Erstellen",
     "cancel": "Abbrechen"
+  },
+  "error": {
+    "validation": {
+      "title": "Validierungsfehler",
+      "message": "Bitte überprüfen sie Ihre Eingabe"
+    },
+    "server": {
+      "title": "Serverfehler",
+      "message": "Ooups! Da ging wohl was schief."
+    }
   }
 }

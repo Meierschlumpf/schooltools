@@ -57,7 +57,18 @@ export const planRouter = router({
         });
       }
 
-      // TODO: check if it already exists
+      const plan = await ctx.prisma.plan.findFirst({
+        where: {
+          semesterId: input.semesterId,
+        },
+      });
+
+      if (plan) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "This plan already exists!",
+        });
+      }
 
       const res = await ctx.prisma.plan.create({
         data: {

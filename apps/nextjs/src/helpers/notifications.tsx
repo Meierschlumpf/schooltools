@@ -1,16 +1,17 @@
 import { NotificationProps, showNotification } from "@mantine/notifications";
+import { Trans } from "next-i18next";
 
 export const showValidationErrorNotification = () => {
   showErrorNotification({
-    title: "Validierungsfehler",
-    message: "Bitte überprüfen sie Ihre Eingabe",
+    title: <Trans i18nKey="common:error.validation.title" />,
+    message: <Trans i18nKey="common:error.validation.message" />,
   });
 };
 
 export const showServerErrorNotification = () => {
   showErrorNotification({
-    title: "Serverfehler",
-    message: "Ooups! Da ging wohl was schief.",
+    title: <Trans i18nKey="common:error.server.title" />,
+    message: <Trans i18nKey="common:error.server.message" />,
   });
 };
 

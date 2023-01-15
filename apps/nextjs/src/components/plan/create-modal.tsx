@@ -8,7 +8,7 @@ import { days } from "../../constants/date";
 import { FormProvider } from "../../contexts/form";
 import { addMinutes } from "../../helpers/date/addMinutes";
 import { dateToMinutes } from "../../helpers/date/dateToMinutes";
-import { showSuccessNotification } from "../../helpers/notifications";
+import { showErrorNotification, showServerErrorNotification, showSuccessNotification } from "../../helpers/notifications";
 import { trpcGenericErrorHandler } from "../../helpers/trpc";
 import { trpc } from "../../utils/trpc";
 import { FormSelect } from "../common/core/inputs/select";
@@ -37,15 +37,19 @@ export const CreatePlanModal = ({ context, id }: ContextModalProps<Record<string
         end: dateToMinutes(end!),
       },
       {
-        onError: trpcGenericErrorHandler,
-        onSuccess(data) {
+        onError: (error) => {
+          if (error.data?.code === "CONFLICT") {
+            return showErrorNotification({
+              title: t("plan/common:notification.create.error.exist.title"),
+              message: t("plan/common:notification.create.error.exist.message"),
+            });
+          }
+          trpcGenericErrorHandler(error);
+        },
+        onSuccess({ id }) {
           showSuccessNotification({
-            title: "Semesterplan erstellt",
-            message: "Der Semesterplan wurde erfolgreich erstellt",
-          });
-          showSuccessNotification({
-            title: "Details",
-            message: `Id: ${data.id}`,
+            title: t("plan/common:notification.create.success.title"),
+            message: t("plan/common:notification.create.success.message"),
           });
           handleClose();
         },
@@ -124,9 +128,11 @@ const useWeekDayData = () => {
 };
 
 export const useCreatePlanModal = () => {
+  const { t } = useTranslation();
+
   const open = () =>
     openModal({
-      title: <Title order={4}>Semesterplan erstellen</Title>,
+      title: <Title order={4}>{t("plan/common:modal.create.title")}</Title>,
       modal: "createPlanModal",
       innerProps: {},
       size: "xl",
