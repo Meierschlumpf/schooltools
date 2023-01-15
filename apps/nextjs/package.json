@@ -18,6 +18,7 @@
     "@emotion/server": "^11.4.0",
     "@mantine/core": "^5.9.5",
     "@mantine/dates": "^5.9.5",
+    "@mantine/form": "^5.9.5",
     "@mantine/hooks": "^5.9.5",
     "@mantine/modals": "^5.9.5",
     "@mantine/next": "^5.9.5",

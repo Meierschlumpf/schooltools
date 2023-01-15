@@ -19,7 +19,7 @@ export const PlanMonth = ({ lessons, isFirst, monthRef }: PlanMonthProps) => {
 
   const month = firstLesson.date.getMonth();
   const year = firstLesson.date.getFullYear();
-  const monthLabel = `${t(`month.${months[month]}`)} ${year}`;
+  const monthLabel = `${t(`month.${months[month]}.label`)} ${year}`;
 
   const reducedLessons = lessons
     .reduce(
