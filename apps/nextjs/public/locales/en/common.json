@@ -11,18 +11,54 @@
     "day_other": "{{count}} days ago"
   },
   "month": {
-    "january": "January",
-    "february": "February",
-    "march": "March",
-    "april": "April",
-    "may": "May",
-    "june": "June",
-    "july": "July",
-    "august": "August",
-    "september": "September",
-    "october": "October",
-    "november": "November",
-    "december": "December"
+    "january": {
+      "label": "January",
+      "short": "Jan"
+    },
+    "february": {
+      "label": "February",
+      "short": "Feb"
+    },
+    "march": {
+      "label": "March",
+      "short": "March"
+    },
+    "april": {
+      "label": "April",
+      "short": "April"
+    },
+    "may": {
+      "label": "May",
+      "short": "May"
+    },
+    "june": {
+      "label": "June",
+      "short": "June"
+    },
+    "july": {
+      "label": "July",
+      "short": "July"
+    },
+    "august": {
+      "label": "August",
+      "short": "Aug"
+    },
+    "september": {
+      "label": "September",
+      "short": "Sept"
+    },
+    "october": {
+      "label": "October",
+      "short": "Oct"
+    },
+    "november": {
+      "label": "November",
+      "short": "Nov"
+    },
+    "december": {
+      "label": "December",
+      "short": "Dec"
+    }
   },
   "weekDay": {
     "monday": {
@@ -52,6 +88,20 @@
     "sunday": {
       "label": "Sunday",
       "short": "Su"
+    }
+  },
+  "action": {
+    "create": "Create",
+    "cancel": "Cancel"
+  },
+  "error": {
+    "validation": {
+      "title": "Validation error",
+      "message": "Please check your input"
+    },
+    "server": {
+      "title": "Server error",
+      "message": "Ooups! Something went wrong."
     }
   }
 }

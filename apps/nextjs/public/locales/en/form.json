@@ -1,0 +1,8 @@
+{
+  "common": {
+    "required": "This field is required."
+  },
+  "plan": {
+    "endSmallerThanStart": "The start must be before the end.."
+  }
+}
