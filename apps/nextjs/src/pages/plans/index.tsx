@@ -1,12 +1,5 @@
 import { appRouter, createContext } from "@acme/api";
-import {
-  Button,
-  Group,
-  ScrollArea,
-  Skeleton,
-  Stack,
-  Title,
-} from "@mantine/core";
+import { Button, Group, ScrollArea, Skeleton, Stack, Title } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { GetServerSideProps } from "next";
@@ -40,11 +33,7 @@ const Page: NextPageWithLayout = () => {
         }[],
         curr,
       ) => {
-        const index = prev.findIndex(
-          (x) =>
-            x.year === curr.date.getFullYear() &&
-            x.month === curr.date.getMonth(),
-        );
+        const index = prev.findIndex((x) => x.year === curr.date.getFullYear() && x.month === curr.date.getMonth());
         if (index !== -1) {
           prev[index]?.lessons.push(curr);
           return prev;
@@ -64,25 +53,24 @@ const Page: NextPageWithLayout = () => {
     });
 
   const firstItem = data.at(0);
-  const { itemRefs, wrapperRef, updateActiveValue, activeValue, generateKey } =
-    useActiveValue({
-      data,
-      initialValue: {
-        year: firstItem?.year,
-        month: firstItem?.month,
-      },
-      generateKey(val) {
-        return `${val.year}-${val.month}`;
-      },
-      parseKey(key) {
-        const [yearString, monthString] = key.split("-");
-        if (!yearString || !monthString) return null;
-        return {
-          year: parseInt(yearString),
-          month: parseInt(monthString),
-        };
-      },
-    });
+  const { itemRefs, wrapperRef, updateActiveValue, activeValue, generateKey } = useActiveValue({
+    data,
+    initialValue: {
+      year: firstItem?.year,
+      month: firstItem?.month,
+    },
+    generateKey(val) {
+      return `${val.year}-${val.month}`;
+    },
+    parseKey(key) {
+      const [yearString, monthString] = key.split("-");
+      if (!yearString || !monthString) return null;
+      return {
+        year: parseInt(yearString),
+        month: parseInt(monthString),
+      };
+    },
+  });
 
   useEffect(() => {
     if (!data || activeValue?.year) return;
@@ -99,18 +87,12 @@ const Page: NextPageWithLayout = () => {
       <Group position="apart" my="xs">
         <Title order={4} align="start">
           {activeValue?.year != undefined && activeValue.month != undefined ? (
-            `${t(`common:month.${months[activeValue.month]}`)} ${
-              activeValue.year
-            }`
+            `${t(`common:month.${months[activeValue.month]}.label`)} ${activeValue.year}`
           ) : (
             <Skeleton height={26} width={110} radius="md" />
           )}
         </Title>
-        <Button
-          variant="subtle"
-          compact
-          onClick={() => scrollIntoView({ alignment: "start" })}
-        >
+        <Button variant="subtle" compact onClick={() => scrollIntoView({ alignment: "start" })}>
           {t("action.nextSchedule")}
         </Button>
       </Group>
@@ -131,12 +113,7 @@ const Page: NextPageWithLayout = () => {
           }}
         >
           {data.map((m, i) => (
-            <PlanMonth
-              key={generateKey(m)}
-              isFirst={i === 0}
-              lessons={m.lessons}
-              monthRef={itemRefs.current[generateKey(m)]!}
-            />
+            <PlanMonth key={generateKey(m)} isFirst={i === 0} lessons={m.lessons} monthRef={itemRefs.current[generateKey(m)]!} />
           ))}
         </NextScheduleContext.Provider>
       </ScrollArea.Autosize>
@@ -165,10 +142,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       trpcState: ssg.dehydrate(),
-      ...(await i18nGetServerSideProps(context, [
-        "pages/plans/index",
-        "user/common",
-      ])),
+      ...(await i18nGetServerSideProps(context, ["pages/plans/index", "user/common"])),
     },
   };
 };
