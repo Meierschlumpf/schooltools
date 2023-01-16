@@ -34,6 +34,43 @@ export const planRouter = router({
       end: lesson.end ?? plan.defaultLessonEnd,
     }));
   }),
+  schoolYear: publicProcedure
+    .input(
+      z.object({
+        start: z.number().min(2000).max(2099),
+        end: z.number().min(2001).max(2100),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const startDate = new Date(input.start, 8 - 1, 1);
+      const endDate = new Date(input.end, 7 - 1, 31, 23, 59, 59, 999);
+
+      const lessons = await ctx.prisma.lesson.findMany({
+        where: {
+          AND: [
+            {
+              date: {
+                gte: startDate,
+              },
+            },
+            {
+              date: {
+                lte: endDate,
+              },
+            },
+          ],
+        },
+        include: {
+          plan: true,
+        },
+      });
+
+      return lessons.map(({ plan, ...lesson }) => ({
+        ...lesson,
+        start: lesson.start ?? plan.defaultLessonStart,
+        end: lesson.end ?? plan.defaultLessonEnd,
+      }));
+    }),
   create: publicProcedure
     .input(
       z.object({
