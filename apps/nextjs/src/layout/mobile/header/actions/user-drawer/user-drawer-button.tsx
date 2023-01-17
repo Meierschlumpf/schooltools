@@ -1,10 +1,4 @@
-import {
-  useMantineTheme,
-  UnstyledButton,
-  Group,
-  Text,
-  ThemeIcon,
-} from "@mantine/core";
+import { useMantineTheme, UnstyledButton, Group, Text, ThemeIcon } from "@mantine/core";
 import { TablerIcon, IconChevronRight } from "@tabler/icons";
 
 interface UserDrawerButtonProps {
@@ -14,12 +8,7 @@ interface UserDrawerButtonProps {
   activeValue?: string;
 }
 
-export const UserDrawerButton = ({
-  icon: Icon,
-  label,
-  onClick,
-  activeValue,
-}: UserDrawerButtonProps) => {
+export const UserDrawerButton = ({ icon: Icon, label, onClick, activeValue }: UserDrawerButtonProps) => {
   const { colors } = useMantineTheme();
 
   return (

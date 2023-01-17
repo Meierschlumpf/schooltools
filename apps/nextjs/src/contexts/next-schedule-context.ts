@@ -5,7 +5,6 @@ interface NextScheduleContextProps {
   dayRef: MutableRefObject<HTMLElement>;
 }
 
-export const NextScheduleContext =
-  createContext<NextScheduleContextProps | null>(null);
+export const NextScheduleContext = createContext<NextScheduleContextProps | null>(null);
 
 export const useNextScheduleContext = () => useContext(NextScheduleContext);

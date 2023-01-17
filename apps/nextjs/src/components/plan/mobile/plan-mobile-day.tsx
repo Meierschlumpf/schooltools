@@ -20,8 +20,7 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
 
   if (!firstLesson) return null;
 
-  const isNextScheduleDate =
-    firstLesson.date.getTime() === nextScheduleDate?.getTime();
+  const isNextScheduleDate = firstLesson.date.getTime() === nextScheduleDate?.getTime();
 
   const dayLabel = t(`common:weekDay.${days[firstLesson.date.getDay()]}.short`);
 
@@ -31,15 +30,7 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
         <Text color="dimmed" size="xs">
           {dayLabel}
         </Text>
-        <Title
-          color={isToday(firstLesson.date) ? colors.indigo[3] : undefined}
-          ref={
-            isNextScheduleDate
-              ? (dayRef as RefObject<HTMLHeadingElement>)
-              : undefined
-          }
-          order={4}
-        >
+        <Title color={isToday(firstLesson.date) ? colors.indigo[3] : undefined} ref={isNextScheduleDate ? (dayRef as RefObject<HTMLHeadingElement>) : undefined} order={4}>
           {firstLesson.date.getDate()}
         </Title>
       </Stack>

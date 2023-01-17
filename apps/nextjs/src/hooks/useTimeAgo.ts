@@ -25,9 +25,7 @@ const getTimeAgo = (date: Date): [string] | [string, number] | string => {
 export const useTimeAgo = (date: Date) => {
   const { t } = useTranslation("common");
   const result = getTimeAgo(date);
-  return typeof result === "string"
-    ? result
-    : t(`timeAgo.${result[0]}`, { count: result[1] });
+  return typeof result === "string" ? result : t(`timeAgo.${result[0]}`, { count: result[1] });
 };
 
 export const useTimeAgoWithUpdates = (date: Date) => {
@@ -39,10 +37,7 @@ export const useTimeAgoWithUpdates = (date: Date) => {
     value: string;
   }>({
     version: 0,
-    value:
-      typeof result === "string"
-        ? result
-        : t(`timeAgo.${result[0]}`, { count: result[1] }),
+    value: typeof result === "string" ? result : t(`timeAgo.${result[0]}`, { count: result[1] }),
   });
 
   useEffect(() => {
@@ -51,10 +46,7 @@ export const useTimeAgoWithUpdates = (date: Date) => {
       const result = getTimeAgo(date);
       setDifference((old) => ({
         version: old.version + 1,
-        value:
-          typeof result === "string"
-            ? result
-            : t(`timeAgo.${result[0]}`, { count: result[1] }),
+        value: typeof result === "string" ? result : t(`timeAgo.${result[0]}`, { count: result[1] }),
       }));
     }, timeUntilNextUpdate);
     return () => ref.current && clearInterval(ref.current);

@@ -22,12 +22,7 @@ export const MantineProviders = ({ children }: MantineProvidersProps) => {
     >
       <NotificationsProvider>
         <ModalsProvider modals={mantineModals}>
-          <SpotlightProvider
-            actions={[]}
-            searchIcon={<IconSearch size={18} />}
-            searchPlaceholder={t("layout/header/search:placeholder")}
-            topOffset={34}
-          >
+          <SpotlightProvider actions={[]} searchIcon={<IconSearch size={18} />} searchPlaceholder={t("layout/header/search:placeholder")} topOffset={34}>
             {children}
           </SpotlightProvider>
         </ModalsProvider>

@@ -17,8 +17,7 @@ const getBaseUrl = () => {
    * you don't have anything else running on it, or you'd have to change it.
    */
   const localhost = Constants.manifest?.debuggerHost?.split(":")[0];
-  if (!localhost)
-    throw new Error("failed to get localhost, configure it manually");
+  if (!localhost) throw new Error("failed to get localhost, configure it manually");
   return `http://${localhost}:3000`;
 };
 
@@ -31,9 +30,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { transformer } from "@acme/api/transformer";
 
-export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const TRPCProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [queryClient] = React.useState(() => new QueryClient());
   const [trpcClient] = React.useState(() =>
     trpc.createClient({

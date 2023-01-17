@@ -13,10 +13,7 @@ export const MobileHeaderNotificationButton = () => {
           <IconBell stroke={1.5} size={24} />
         </Indicator>
       </ActionIcon>
-      <MobileHeaderNotificationDrawer
-        opened={openedDrawer}
-        closeDrawer={drawer.close}
-      />
+      <MobileHeaderNotificationDrawer opened={openedDrawer} closeDrawer={drawer.close} />
     </>
   );
 };

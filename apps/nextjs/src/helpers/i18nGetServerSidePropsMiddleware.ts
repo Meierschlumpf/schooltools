@@ -4,15 +4,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { ParsedUrlQuery } from "querystring";
 import nextI18nConfig from "../../next-i18next.config.js";
 import { LOCALE_COOKIE_KEY } from "../constants/cookies";
-import {
-  defaultI18nNamespaces,
-  i18nNamespaceType,
-} from "../constants/i18n-namespaces";
+import { defaultI18nNamespaces, i18nNamespaceType } from "../constants/i18n-namespaces";
 
-export const i18nGetServerSideProps = async <
-  Q extends ParsedUrlQuery = ParsedUrlQuery,
-  D extends PreviewData = PreviewData,
->(
+export const i18nGetServerSideProps = async <Q extends ParsedUrlQuery = ParsedUrlQuery, D extends PreviewData = PreviewData>(
   { req, res }: GetServerSidePropsContext<Q, D>,
   specificNamespaces?: i18nNamespaceType[number][],
 ) => {
@@ -27,10 +21,5 @@ export const i18nGetServerSideProps = async <
     });
   }
 
-  return await serverSideTranslations(
-    locale ?? "en",
-    [...defaultI18nNamespaces, ...(specificNamespaces ?? [])],
-    nextI18nConfig as any,
-    ["en", "de"],
-  );
+  return await serverSideTranslations(locale ?? "en", [...defaultI18nNamespaces, ...(specificNamespaces ?? [])], nextI18nConfig as any, ["en", "de"]);
 };
