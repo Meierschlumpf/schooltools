@@ -20,7 +20,7 @@ const Page: NextPageWithLayout = () => {
     { enabled: !!query.start && !!query.end },
   );
 
-  if (!query.start || !query.end) return <></>;
+  if (!query.start || !query.end) return null;
 
   return <MobilePlanList data={data ?? []} />;
 };
