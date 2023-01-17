@@ -1,10 +1,4 @@
-import {
-  Card,
-  Group,
-  Text,
-  UnstyledButton,
-  useMantineTheme,
-} from "@mantine/core";
+import { Card, Group, Text, UnstyledButton, useMantineTheme } from "@mantine/core";
 import { openSpotlight } from "@mantine/spotlight";
 import { IconSearch } from "@tabler/icons";
 import { useTranslation } from "next-i18next";

@@ -8,11 +8,7 @@ export interface MobileFooterTabBaseProps {
   active?: boolean;
 }
 
-export const MobileFooterTabBase = ({
-  id,
-  icon: Icon,
-  active,
-}: MobileFooterTabBaseProps) => {
+export const MobileFooterTabBase = ({ id, icon: Icon, active }: MobileFooterTabBaseProps) => {
   const { t } = useTranslation("layout/footer/common");
   const { colors, fn } = useMantineTheme();
 

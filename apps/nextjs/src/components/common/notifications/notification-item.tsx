@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Card,
-  Group,
-  Stack,
-  Text,
-  useMantineTheme,
-} from "@mantine/core";
+import { Avatar, Card, Group, Stack, Text, useMantineTheme } from "@mantine/core";
 import { useTimeAgoWithUpdates } from "../../../hooks/useTimeAgo";
 
 interface NotificationItemProps {
@@ -28,18 +21,11 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
     <Card
       shadow="sm"
       style={{
-        borderLeft: !notification.isRead
-          ? `1px solid ${colors.indigo[6]}`
-          : undefined,
+        borderLeft: !notification.isRead ? `1px solid ${colors.indigo[6]}` : undefined,
       }}
     >
       <Group align="start">
-        <Avatar
-          size="md"
-          radius="xl"
-          src={notification.sender.profileSrc}
-          alt={notification.sender.username}
-        />
+        <Avatar size="md" radius="xl" src={notification.sender.profileSrc} alt={notification.sender.username} />
         <Stack style={{ flex: 1 }} spacing={4}>
           <Group position="apart">
             <Text weight={500} size="sm">

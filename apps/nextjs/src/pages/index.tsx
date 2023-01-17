@@ -1,23 +1,5 @@
-import {
-  Avatar,
-  Card,
-  Center,
-  Grid,
-  Paper,
-  RingProgress,
-  Stack,
-  Text,
-  Title,
-  UnstyledButton,
-  useMantineTheme,
-} from "@mantine/core";
-import {
-  IconBook2,
-  IconCalendarTime,
-  IconUsers,
-  IconUserX,
-  TablerIcon,
-} from "@tabler/icons";
+import { Avatar, Card, Center, Grid, Paper, RingProgress, Stack, Text, Title, UnstyledButton, useMantineTheme } from "@mantine/core";
+import { IconBook2, IconCalendarTime, IconUsers, IconUserX, TablerIcon } from "@tabler/icons";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
@@ -47,26 +29,12 @@ const Home: NextPageWithLayout = () => {
             roundCaps
             label={
               <Center>
-                <Avatar
-                  color="transparent"
-                  src="https://avatars.githubusercontent.com/u/63781622?s=512&v=4"
-                  alt="Meier Lukas"
-                  radius={64}
-                  size={128}
-                />
+                <Avatar color="transparent" src="https://avatars.githubusercontent.com/u/63781622?s=512&v=4" alt="Meier Lukas" radius={64} size={128} />
               </Center>
             }
           />
 
-          <Paper
-            withBorder
-            pos="absolute"
-            top={167}
-            py={2}
-            w={48}
-            style={{ zIndex: 2 }}
-            shadow="xl"
-          >
+          <Paper withBorder pos="absolute" top={167} py={2} w={48} style={{ zIndex: 2 }} shadow="xl">
             <Text align="center" weight={500}>
               30
             </Text>
@@ -75,26 +43,10 @@ const Home: NextPageWithLayout = () => {
           <Text color="dimmed">{t("user/common:role.apprentice.label")}</Text>
         </Stack>
         <Grid>
-          <FastAction
-            href="#"
-            label={t("fastAction.class.label")}
-            icon={IconUsers}
-          />
-          <FastAction
-            href="#"
-            label={t("fastAction.subject.label")}
-            icon={IconBook2}
-          />
-          <FastAction
-            href="#"
-            label={t("fastAction.schedule.label")}
-            icon={IconCalendarTime}
-          />
-          <FastAction
-            href="#"
-            label={t("fastAction.absence.label")}
-            icon={IconUserX}
-          />
+          <FastAction href="#" label={t("fastAction.class.label")} icon={IconUsers} />
+          <FastAction href="#" label={t("fastAction.subject.label")} icon={IconBook2} />
+          <FastAction href="#" label={t("fastAction.schedule.label")} icon={IconCalendarTime} />
+          <FastAction href="#" label={t("fastAction.absence.label")} icon={IconUserX} />
         </Grid>
       </Stack>
     </>
@@ -110,10 +62,7 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
-      ...(await i18nGetServerSideProps(context, [
-        "pages/index",
-        "user/common",
-      ])),
+      ...(await i18nGetServerSideProps(context, ["pages/index", "user/common"])),
     },
   };
 };

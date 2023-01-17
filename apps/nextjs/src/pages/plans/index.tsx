@@ -1,124 +1,17 @@
 import { appRouter, createContext } from "@acme/api";
-import { Button, Group, ScrollArea, Skeleton, Stack, Title } from "@mantine/core";
-import { useScrollIntoView } from "@mantine/hooks";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { GetServerSideProps } from "next";
-import { useTranslation } from "next-i18next";
-import { useEffect } from "react";
-import { PlanMonth } from "../../components/plan/mobile/plan-mobile-month";
-import { months } from "../../constants/date";
-import { NextScheduleContext } from "../../contexts/next-schedule-context";
-import { i18nGetServerSideProps } from "../../helpers/i18nGetServerSidePropsMiddleware";
-import { useActiveValue } from "../../hooks/useActiveValue";
-import { MobileLayout } from "../../layout/mobile/mobile-layout";
-import { RouterOutputs, trpc } from "../../utils/trpc";
-import { NextPageWithLayout } from "../_app";
-
 import superjson from "superjson";
+import { i18nGetServerSideProps } from "../../helpers/i18nGetServerSidePropsMiddleware";
+import { MobileLayout } from "../../layout/mobile/mobile-layout";
+import { trpc } from "../../utils/trpc";
+import { NextPageWithLayout } from "../_app";
+import { MobilePlanList } from "../../components/plan/mobile/mobile-list";
+
 const Page: NextPageWithLayout = () => {
-  const { t } = useTranslation(["pages/plans/index", "common"]);
-  const { data: queryData } = trpc.plan.currentSchoolYear.useQuery();
-  const { scrollIntoView, targetRef, scrollableRef } = useScrollIntoView({
-    offset: 32,
-    duration: 0,
-  });
+  const { data } = trpc.plan.currentSchoolYear.useQuery();
 
-  const data = (queryData ?? [])
-    .reduce(
-      (
-        prev: {
-          year: number;
-          month: number;
-          lessons: RouterOutputs["plan"]["currentSchoolYear"];
-        }[],
-        curr,
-      ) => {
-        const index = prev.findIndex((x) => x.year === curr.date.getFullYear() && x.month === curr.date.getMonth());
-        if (index !== -1) {
-          prev[index]?.lessons.push(curr);
-          return prev;
-        }
-        prev.push({
-          month: curr.date.getMonth(),
-          year: curr.date.getFullYear(),
-          lessons: [curr],
-        });
-        return prev;
-      },
-      [],
-    )
-    .sort((a, b) => {
-      const n = a.year - b.year;
-      return n !== 0 ? n : a.month - b.month;
-    });
-
-  const firstItem = data.at(0);
-  const { itemRefs, wrapperRef, updateActiveValue, activeValue, generateKey } = useActiveValue({
-    data,
-    initialValue: {
-      year: firstItem?.year,
-      month: firstItem?.month,
-    },
-    generateKey(val) {
-      return `${val.year}-${val.month}`;
-    },
-    parseKey(key) {
-      const [yearString, monthString] = key.split("-");
-      if (!yearString || !monthString) return null;
-      return {
-        year: parseInt(yearString),
-        month: parseInt(monthString),
-      };
-    },
-  });
-
-  useEffect(() => {
-    if (!data || activeValue?.year) return;
-    updateActiveValue();
-  }, [data]);
-
-  if (!firstItem) return null;
-
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-  return (
-    <Stack spacing={0}>
-      <Group position="apart" my="xs">
-        <Title order={4} align="start">
-          {activeValue?.year != undefined && activeValue.month != undefined ? (
-            `${t(`common:month.${months[activeValue.month]}.label`)} ${activeValue.year}`
-          ) : (
-            <Skeleton height={26} width={110} radius="md" />
-          )}
-        </Title>
-        <Button variant="subtle" compact onClick={() => scrollIntoView({ alignment: "start" })}>
-          {t("action.nextSchedule")}
-        </Button>
-      </Group>
-      <ScrollArea.Autosize
-        ref={wrapperRef}
-        maxHeight="calc(100vh - var(--mantine-footer-height) - var(--mantine-header-height) - 64px)"
-        onScrollPositionChange={updateActiveValue}
-        viewportRef={scrollableRef}
-      >
-        <NextScheduleContext.Provider
-          value={{
-            dayRef: targetRef,
-            nextScheduleDate:
-              (queryData ?? [])
-                .filter((x) => x.date >= today)
-                .sort((a, b) => a.date.getTime() - b.date.getTime())
-                .at(0)?.date ?? today,
-          }}
-        >
-          {data.map((m, i) => (
-            <PlanMonth key={generateKey(m)} isFirst={i === 0} lessons={m.lessons} monthRef={itemRefs.current[generateKey(m)]!} />
-          ))}
-        </NextScheduleContext.Provider>
-      </ScrollArea.Autosize>
-    </Stack>
-  );
+  return <MobilePlanList data={data ?? []} />;
 };
 
 Page.getLayout = (page) => {

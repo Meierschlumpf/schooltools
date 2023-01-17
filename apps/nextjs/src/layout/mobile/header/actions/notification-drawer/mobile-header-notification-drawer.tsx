@@ -1,12 +1,4 @@
-import {
-  ActionIcon,
-  Chip,
-  Drawer,
-  Group,
-  ScrollArea,
-  Stack,
-  Title,
-} from "@mantine/core";
+import { ActionIcon, Chip, Drawer, Group, ScrollArea, Stack, Title } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons";
 import { useTranslation } from "next-i18next";
 import { useState } from "react";
@@ -29,10 +21,7 @@ const exampleNotification = {
   isRead: true,
 };
 
-export const MobileHeaderNotificationDrawer = ({
-  opened,
-  closeDrawer,
-}: MobileHeaderNotificationDrawerProps) => {
+export const MobileHeaderNotificationDrawer = ({ opened, closeDrawer }: MobileHeaderNotificationDrawerProps) => {
   const { t } = useTranslation("layout/header/notification/common");
   const [tab, setTab] = useState("all");
 
