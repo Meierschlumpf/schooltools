@@ -42,6 +42,20 @@ export const planRouter = router({
       }),
     )
     .query(async ({ ctx, input }) => {
+      if (input.start === input.end) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Start and end must not be the same",
+        });
+      }
+
+      if (input.start > input.end) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Start must not be greater than end",
+        });
+      }
+
       const startDate = new Date(input.start, 8 - 1, 1);
       const endDate = new Date(input.end, 7 - 1, 31, 23, 59, 59, 999);
 
@@ -74,7 +88,7 @@ export const planRouter = router({
   create: publicProcedure
     .input(
       z.object({
-        semesterId: z.string().max(24),
+        semesterId: z.string().max(32),
         weekDay: z.number().min(1).max(6),
         start: z
           .number()
