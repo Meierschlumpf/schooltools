@@ -1,0 +1,37 @@
+{
+  "property": {
+    "semesterId": {
+      "label": "Semester",
+      "placeholder": "Please select the semester..."
+    },
+    "weekDay": {
+      "label": "School day",
+      "placeholder": "Please select the school day..."
+    },
+    "start": {
+      "label": "Start of lesson"
+    },
+    "end": {
+      "label": "End of lesson"
+    }
+  },
+  "notification": {
+    "create": {
+      "success": {
+        "title": "Created plan",
+        "message": "The plan has been created successfully"
+      },
+      "error": {
+        "exist": {
+          "title": "Plan present",
+          "message": "This plan was already present"
+        }
+      }
+    }
+  },
+  "modal": {
+    "create": {
+      "title": "Create plan"
+    }
+  }
+}

@@ -10,11 +10,7 @@ interface MobileFooterMoreDrawerProps {
   activeTab: MobileFooterTabs | MobileFooterMoreTabs;
 }
 
-export const MobileFooterMoreDrawer = ({
-  opened,
-  closeDrawer,
-  activeTab,
-}: MobileFooterMoreDrawerProps) => {
+export const MobileFooterMoreDrawer = ({ opened, closeDrawer, activeTab }: MobileFooterMoreDrawerProps) => {
   const { t } = useTranslation("layout/footer/common");
   const { spacing } = useMantineTheme();
   const lastTabItem = initialFooterTabs.at(-1);
@@ -55,10 +51,7 @@ export const MobileFooterMoreDrawer = ({
             justifyContent: "space-between",
           }}
         >
-          {moreFooterTabOptions.some((x) => x.id === activeTab) &&
-          lastTabItem ? (
-            <MobileFooterAppItem option={lastTabItem} />
-          ) : null}
+          {moreFooterTabOptions.some((x) => x.id === activeTab) && lastTabItem ? <MobileFooterAppItem option={lastTabItem} /> : null}
           {moreFooterTabOptions
             .filter((o) => o.id !== activeTab)
             .map((option) => (

@@ -8,16 +8,9 @@ export const MoibleHeaderUserButton = () => {
   return (
     <>
       <ActionIcon size="lg" radius="xl" onClick={drawer.open}>
-        <Avatar
-          size={24}
-          radius={12}
-          src="https://avatars.githubusercontent.com/u/63781622?s=40&v=4"
-        />
+        <Avatar size={24} radius={12} src="https://avatars.githubusercontent.com/u/63781622?s=40&v=4" />
       </ActionIcon>
-      <MobileHeaderUserDrawer
-        opened={openedDrawer}
-        closeDrawer={drawer.close}
-      />
+      <MobileHeaderUserDrawer opened={openedDrawer} closeDrawer={drawer.close} />
     </>
   );
 };

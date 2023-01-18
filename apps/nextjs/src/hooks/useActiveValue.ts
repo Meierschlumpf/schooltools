@@ -7,12 +7,7 @@ interface UseActiveValueProps<TData, TActiveValue> {
   parseKey: (key: string) => TActiveValue;
 }
 
-export const useActiveValue = <TData, TActiveValue>({
-  data,
-  generateKey,
-  parseKey,
-  initialValue,
-}: UseActiveValueProps<TData, TActiveValue>) => {
+export const useActiveValue = <TData, TActiveValue>({ data, generateKey, parseKey, initialValue }: UseActiveValueProps<TData, TActiveValue>) => {
   const itemRefs = useRef<Record<string, RefObject<HTMLDivElement>>>({});
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [activeValue, setActiveValue] = useState(initialValue);

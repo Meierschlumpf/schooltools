@@ -10,10 +10,7 @@ interface MobileLayoutProps extends PropsWithChildren {
 
 export const MobileLayout = ({ children, activeTab }: MobileLayoutProps) => {
   return (
-    <AppShell
-      header={<MobileHeader />}
-      footer={<MobileFooter activeTab={activeTab} />}
-    >
+    <AppShell header={<MobileHeader />} footer={<MobileFooter activeTab={activeTab} />}>
       {children}
     </AppShell>
   );

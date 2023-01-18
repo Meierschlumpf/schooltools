@@ -1,14 +1,14 @@
-import { Lesson } from "@acme/db";
 import { Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
 import { useTranslation } from "next-i18next";
 import { RefObject } from "react";
 import { days } from "../../../constants/date";
 import { useNextScheduleContext } from "../../../contexts/next-schedule-context";
 import { isToday } from "../../../helpers/date/isToday";
+import { RouterOutputs } from "../../../utils/trpc";
 import { PlanLesson } from "./mobile-lesson";
 
 interface PlanDayProps {
-  lessons: Lesson[];
+  lessons: RouterOutputs["plan"]["currentSchoolYear"];
 }
 
 export const PlanDay = ({ lessons }: PlanDayProps) => {
@@ -20,8 +20,7 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
 
   if (!firstLesson) return null;
 
-  const isNextScheduleDate =
-    firstLesson.date.getTime() === nextScheduleDate?.getTime();
+  const isNextScheduleDate = firstLesson.date.getTime() === nextScheduleDate?.getTime();
 
   const dayLabel = t(`common:weekDay.${days[firstLesson.date.getDay()]}.short`);
 
@@ -31,15 +30,7 @@ export const PlanDay = ({ lessons }: PlanDayProps) => {
         <Text color="dimmed" size="xs">
           {dayLabel}
         </Text>
-        <Title
-          color={isToday(firstLesson.date) ? colors.indigo[3] : undefined}
-          ref={
-            isNextScheduleDate
-              ? (dayRef as RefObject<HTMLHeadingElement>)
-              : undefined
-          }
-          order={4}
-        >
+        <Title color={isToday(firstLesson.date) ? colors.indigo[3] : undefined} ref={isNextScheduleDate ? (dayRef as RefObject<HTMLHeadingElement>) : undefined} order={4}>
           {firstLesson.date.getDate()}
         </Title>
       </Stack>
