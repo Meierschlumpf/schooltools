@@ -1,7 +1,7 @@
 import { Button, Group, ScrollArea, Skeleton, Stack, Title } from "@mantine/core";
 import { useScrollIntoView } from "@mantine/hooks";
 import { useTranslation } from "next-i18next";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { months } from "../../../constants/date";
 import { NextScheduleContext } from "../../../contexts/next-schedule-context";
 import { useActiveValue } from "../../../hooks/useActiveValue";
@@ -19,34 +19,38 @@ export const MobilePlanList = ({ data: queryData }: MobilePlanListProps) => {
     duration: 0,
   });
 
-  const data = (queryData ?? [])
-    .reduce(
-      (
-        prev: {
-          year: number;
-          month: number;
-          lessons: RouterOutputs["plan"]["currentSchoolYear"];
-        }[],
-        curr,
-      ) => {
-        const index = prev.findIndex((x) => x.year === curr.date.getFullYear() && x.month === curr.date.getMonth());
-        if (index !== -1) {
-          prev[index]?.lessons.push(curr);
-          return prev;
-        }
-        prev.push({
-          month: curr.date.getMonth(),
-          year: curr.date.getFullYear(),
-          lessons: [curr],
-        });
-        return prev;
-      },
-      [],
-    )
-    .sort((a, b) => {
-      const n = a.year - b.year;
-      return n !== 0 ? n : a.month - b.month;
-    });
+  const data = useMemo(
+    () =>
+      (queryData ?? [])
+        .reduce(
+          (
+            prev: {
+              year: number;
+              month: number;
+              lessons: RouterOutputs["plan"]["currentSchoolYear"];
+            }[],
+            curr,
+          ) => {
+            const index = prev.findIndex((x) => x.year === curr.date.getFullYear() && x.month === curr.date.getMonth());
+            if (index !== -1) {
+              prev[index]?.lessons.push(curr);
+              return prev;
+            }
+            prev.push({
+              month: curr.date.getMonth(),
+              year: curr.date.getFullYear(),
+              lessons: [curr],
+            });
+            return prev;
+          },
+          [],
+        )
+        .sort((a, b) => {
+          const n = a.year - b.year;
+          return n !== 0 ? n : a.month - b.month;
+        }),
+    [queryData],
+  );
 
   const firstItem = data.at(0);
   const { itemRefs, wrapperRef, updateActiveValue, activeValue, generateKey } = useActiveValue({
