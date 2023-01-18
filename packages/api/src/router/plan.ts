@@ -89,14 +89,14 @@ export const planRouter = router({
     .input(
       z.object({
         year: z.number().min(2000).max(2100),
-        season: z.enum(["spring", "automn"]),
+        season: z.enum(["spring", "autumn"]),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const startMonth = input.season === "automn" ? 8 : 2;
-      const endMonth = input.season === "automn" ? 1 : 7;
+      const startMonth = input.season === "autumn" ? 8 : 2;
+      const endMonth = input.season === "autumn" ? 1 : 7;
       const startDate = new Date(input.year, startMonth - 1, 1);
-      const endDate = new Date(input.season === "automn" ? input.year + 1 : input.year, endMonth - 1, 31, 23, 59, 59, 999);
+      const endDate = new Date(input.season === "autumn" ? input.year + 1 : input.year, endMonth - 1, 31, 23, 59, 59, 999);
 
       const lessons = await ctx.prisma.lesson.findMany({
         where: {

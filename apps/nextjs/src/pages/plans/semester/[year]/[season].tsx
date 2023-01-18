@@ -16,7 +16,7 @@ const Page: NextPageWithLayout = () => {
   const { data } = trpc.plan.semester.useQuery(
     {
       year: parseInt(query.year ?? "0"),
-      season: query.season ?? "automn",
+      season: query.season ?? "autumn",
     },
     { enabled: !!query.year && !!query.season },
   );
@@ -35,7 +35,7 @@ export default Page;
 // Query param schema to validate query parameters
 const queryParamSchema = z.object({
   year: z.preprocess((s) => parseInt(z.string().regex(/^\d+$/).parse(s), 10), z.number().min(2000).max(2100)),
-  season: z.enum(["spring", "automn"]),
+  season: z.enum(["spring", "autumn"]),
 });
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -70,4 +70,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-type QueryType = { year?: string; season?: "automn" | "spring" };
+type QueryType = { year?: string; season?: "autumn" | "spring" };
