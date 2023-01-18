@@ -85,6 +85,45 @@ export const planRouter = router({
         end: lesson.end ?? plan.defaultLessonEnd,
       }));
     }),
+  semester: publicProcedure
+    .input(
+      z.object({
+        year: z.number().min(2000).max(2100),
+        season: z.enum(["spring", "automn"]),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const startMonth = input.season === "automn" ? 8 : 2;
+      const endMonth = input.season === "automn" ? 1 : 7;
+      const startDate = new Date(input.year, startMonth - 1, 1);
+      const endDate = new Date(input.season === "automn" ? input.year + 1 : input.year, endMonth - 1, 31, 23, 59, 59, 999);
+
+      const lessons = await ctx.prisma.lesson.findMany({
+        where: {
+          AND: [
+            {
+              date: {
+                gte: startDate,
+              },
+            },
+            {
+              date: {
+                lte: endDate,
+              },
+            },
+          ],
+        },
+        include: {
+          plan: true,
+        },
+      });
+
+      return lessons.map(({ plan, ...lesson }) => ({
+        ...lesson,
+        start: lesson.start ?? plan.defaultLessonStart,
+        end: lesson.end ?? plan.defaultLessonEnd,
+      }));
+    }),
   create: publicProcedure
     .input(
       z.object({
