@@ -1,8 +1,11 @@
-import { ActionIcon, Avatar, Divider, Drawer, Group, ScrollArea, Stack, Text, Title } from "@mantine/core";
+import { ActionIcon, Divider, Drawer, Group, ScrollArea, Stack, Text, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconArrowLeft, IconBell, IconCode, IconInfoCircle, IconKey, IconLanguage, IconPalette, IconPencil, IconQuestionCircle } from "@tabler/icons";
+import { IconArrowLeft, IconBell, IconCode, IconInfoCircle, IconKey, IconLanguage, IconLogout, IconPalette, IconPencil, IconQuestionCircle } from "@tabler/icons";
+import { signOut } from "next-auth/react";
 import { useTranslation } from "next-i18next";
+import { CurrentAvatar } from "../../../../../components/common/avatar-current";
 import { languages } from "../../../../../constants/languages";
+import { trpc } from "../../../../../utils/trpc";
 import { LanguageDrawer } from "./app-settings/language-drawer";
 import { UserDrawerButton } from "./user-drawer-button";
 
@@ -14,6 +17,7 @@ interface MobileHeaderUserDrawerProps {
 export const MobileHeaderUserDrawer = ({ opened, closeDrawer }: MobileHeaderUserDrawerProps) => {
   const { t, i18n } = useTranslation("layout/header/profile/common");
   const [languageDrawerOpened, languageDrawer] = useDisclosure(false);
+  const { data: user } = trpc.user.me.useQuery();
 
   return (
     <Drawer
@@ -41,11 +45,11 @@ export const MobileHeaderUserDrawer = ({ opened, closeDrawer }: MobileHeaderUser
       <ScrollArea.Autosize maxHeight="calc(100vh - var(--mantine-footer-height) - 64px)">
         <Stack>
           <Group>
-            <Avatar size={64} radius={32} src="https://avatars.githubusercontent.com/u/63781622?s=512&v=4" />
+            <CurrentAvatar size={64} radius={32} />
             <Stack spacing={0}>
-              <Text weight={500}>Meierschlumpf</Text>
+              <Text weight={500}>{user?.name}</Text>
               <Text color="dimmed" size="xs">
-                meierschlumpf@gmail.com
+                {user?.email}
               </Text>
               <Text weight={300} size="xs" mt={6}>
                 {t("status.available")}
@@ -68,6 +72,13 @@ export const MobileHeaderUserDrawer = ({ opened, closeDrawer }: MobileHeaderUser
             <UserDrawerButton icon={IconPencil} label={t("section.app-settings.items.profile.label")} />
             <UserDrawerButton icon={IconKey} label={t("section.app-settings.items.privacy.label")} />
             <UserDrawerButton icon={IconBell} label={t("section.app-settings.items.notification.label")} />
+          </Stack>
+          <Divider />
+          <Text weight={500} size="sm">
+            {t("section.account.heading")}
+          </Text>
+          <Stack spacing={0}>
+            <UserDrawerButton showChevron={false} onClick={signOut} icon={IconLogout} label={t("section.account.items.logout.label")} />
           </Stack>
           <Divider />
           <Text weight={500} size="sm">

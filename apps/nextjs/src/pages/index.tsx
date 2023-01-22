@@ -1,14 +1,17 @@
-import { Avatar, Card, Center, Grid, Paper, RingProgress, Stack, Text, Title, UnstyledButton, useMantineTheme } from "@mantine/core";
+import { Card, Center, Grid, Paper, RingProgress, Stack, Text, Title, UnstyledButton, useMantineTheme } from "@mantine/core";
 import { IconBook2, IconCalendarTime, IconUsers, IconUserX, TablerIcon } from "@tabler/icons";
 import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import Link from "next/link";
+import { CurrentAvatar } from "../components/common/avatar-current";
 import { i18nGetServerSideProps } from "../helpers/i18nGetServerSidePropsMiddleware";
 import { MobileLayout } from "../layout/mobile/mobile-layout";
+import { trpc } from "../utils/trpc";
 import { NextPageWithLayout } from "./_app";
 
 const Home: NextPageWithLayout = () => {
+  const { data: user } = trpc.user.me.useQuery();
   const { t } = useTranslation(["pages/index", "user/common"]);
 
   return (
@@ -29,7 +32,7 @@ const Home: NextPageWithLayout = () => {
             roundCaps
             label={
               <Center>
-                <Avatar color="transparent" src="https://avatars.githubusercontent.com/u/63781622?s=512&v=4" alt="Meier Lukas" radius={64} size={128} />
+                <CurrentAvatar color="transparent" radius={64} size={128} />
               </Center>
             }
           />
@@ -39,7 +42,7 @@ const Home: NextPageWithLayout = () => {
               30
             </Text>
           </Paper>
-          <Title order={3}>Meier Lukas</Title>
+          <Title order={3}>{user?.name}</Title>
           <Text color="dimmed">{t("user/common:role.apprentice.label")}</Text>
         </Stack>
         <Grid>

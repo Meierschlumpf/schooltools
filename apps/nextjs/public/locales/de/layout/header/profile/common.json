@@ -39,6 +39,14 @@
         }
       }
     },
+    "account": {
+      "heading": "Konto",
+      "items": {
+        "logout": {
+          "label": "Abmelden"
+        }
+      }
+    },
     "developer": {
       "heading": "Entwickler",
       "items": {
