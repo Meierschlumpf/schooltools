@@ -6,9 +6,10 @@ interface UserDrawerButtonProps {
   label: string;
   onClick?: () => void;
   activeValue?: string;
+  showChevron?: boolean;
 }
 
-export const UserDrawerButton = ({ icon: Icon, label, onClick, activeValue }: UserDrawerButtonProps) => {
+export const UserDrawerButton = ({ icon: Icon, label, onClick, activeValue, showChevron = true }: UserDrawerButtonProps) => {
   const { colors } = useMantineTheme();
 
   return (
@@ -23,7 +24,7 @@ export const UserDrawerButton = ({ icon: Icon, label, onClick, activeValue }: Us
             <Text color="dimmed" size="sm">
               {activeValue}
             </Text>
-            <IconChevronRight size={20} />
+            {showChevron ? <IconChevronRight size={20} /> : null}
           </Group>
         </Group>
       </Group>

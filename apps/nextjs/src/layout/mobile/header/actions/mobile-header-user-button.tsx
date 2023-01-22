@@ -1,5 +1,6 @@
-import { ActionIcon, Avatar } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { CurrentAvatar } from "../../../../components/common/avatar-current";
 import { MobileHeaderUserDrawer } from "./user-drawer/mobile-header-user-drawer";
 
 export const MoibleHeaderUserButton = () => {
@@ -8,7 +9,7 @@ export const MoibleHeaderUserButton = () => {
   return (
     <>
       <ActionIcon size="lg" radius="xl" onClick={drawer.open}>
-        <Avatar size={24} radius={12} src="https://avatars.githubusercontent.com/u/63781622?s=40&v=4" />
+        <CurrentAvatar size={24} radius={12} />
       </ActionIcon>
       <MobileHeaderUserDrawer opened={openedDrawer} closeDrawer={drawer.close} />
     </>

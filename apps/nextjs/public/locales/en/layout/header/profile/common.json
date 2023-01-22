@@ -28,6 +28,14 @@
         }
       }
     },
+    "account": {
+      "heading": "Account",
+      "items": {
+        "logout": {
+          "label": "Logout"
+        }
+      }
+    },
     "help": {
       "heading": "Help & News",
       "items": {
