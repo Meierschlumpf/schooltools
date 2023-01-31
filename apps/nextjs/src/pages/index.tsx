@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import Link from "next/link";
 import { CurrentAvatar } from "../components/common/avatar-current";
+import { prefetchTrpcQueries } from "../helpers/createProxySSGHelpers";
 import { i18nGetServerSideProps } from "../helpers/i18nGetServerSidePropsMiddleware";
 import { MobileLayout } from "../layout/mobile/mobile-layout";
 import { trpc } from "../utils/trpc";
@@ -43,7 +44,7 @@ const Home: NextPageWithLayout = () => {
             </Text>
           </Paper>
           <Title order={3}>{user?.name}</Title>
-          <Text color="dimmed">{t("user/common:role.apprentice.label")}</Text>
+          <Text color="dimmed">{t(`user/common:role.${user?.role.toLowerCase()}.label`)}</Text>
         </Stack>
         <Grid>
           <FastAction href="#" label={t("fastAction.class.label")} icon={IconUsers} />
@@ -65,6 +66,7 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
+      trpcState: await prefetchTrpcQueries(context),
       ...(await i18nGetServerSideProps(context, ["pages/index", "user/common"])),
     },
   };
