@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { MobilePlanList } from "../../components/plan/mobile/mobile-list";
-import { prefetchTrpcQueries } from "../../helpers/createProxySSGHelpers";
+import { prefetchTrpcQueries } from "../../helpers/prefetchTrpcQueries";
 import { i18nGetServerSideProps } from "../../helpers/i18nGetServerSidePropsMiddleware";
 import { MobileLayout } from "../../layout/mobile/mobile-layout";
 import { trpc } from "../../utils/trpc";

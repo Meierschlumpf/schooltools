@@ -5,7 +5,7 @@ import { useTranslation } from "next-i18next";
 import Head from "next/head";
 import Link from "next/link";
 import { CurrentAvatar } from "../components/common/avatar-current";
-import { prefetchTrpcQueries } from "../helpers/createProxySSGHelpers";
+import { prefetchTrpcQueries } from "../helpers/prefetchTrpcQueries";
 import { i18nGetServerSideProps } from "../helpers/i18nGetServerSidePropsMiddleware";
 import { MobileLayout } from "../layout/mobile/mobile-layout";
 import { trpc } from "../utils/trpc";
