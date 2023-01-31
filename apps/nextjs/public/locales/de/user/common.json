@@ -1,7 +1,10 @@
 {
   "role": {
-    "apprentice": {
-      "label": "Lehrling"
+    "user": {
+      "label": "Benutzer"
+    },
+    "student": {
+      "label": "Schüler"
     },
     "teacher": {
       "label": "Lehrperson"

@@ -5,6 +5,11 @@ export const userRouter = router({
     return ctx.session;
   }),
   me: publicProcedure.query(({ ctx }) => {
-    return ctx.session?.user;
+    const user = ctx.prisma.user.findFirst({
+      where: {
+        id: ctx.session?.user.id,
+      },
+    });
+    return user;
   }),
 });

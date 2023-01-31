@@ -1,7 +1,10 @@
 {
   "role": {
-    "apprentice": {
-      "label": "Apprentice"
+    "user": {
+      "label": "User"
+    },
+    "student": {
+      "label": "Student"
     },
     "teacher": {
       "label": "Teacher"

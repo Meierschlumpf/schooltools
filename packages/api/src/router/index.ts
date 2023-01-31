@@ -1,5 +1,5 @@
 import { router } from "../trpc";
-import { userRouter } from "./auth";
+import { userRouter } from "./user";
 import { planRouter } from "./plan";
 import { semesterRouter } from "./semester";
 

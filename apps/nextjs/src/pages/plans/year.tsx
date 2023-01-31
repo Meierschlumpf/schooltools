@@ -1,10 +1,8 @@
-import { appRouter, createContext } from "@acme/api";
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import superjson from "superjson";
 import { z } from "zod";
 import { MobilePlanList } from "../../components/plan/mobile/mobile-list";
+import { prefetchTrpcQueries } from "../../helpers/prefetchTrpcQueries";
 import { i18nGetServerSideProps } from "../../helpers/i18nGetServerSidePropsMiddleware";
 import { MobileLayout } from "../../layout/mobile/mobile-layout";
 import { trpc } from "../../utils/trpc";
@@ -47,23 +45,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
 
-  const ssg = createProxySSGHelpers({
-    router: appRouter,
-    ctx: await createContext({
-      req: context.req as any,
-      res: context.res as any,
-    }),
-    transformer: superjson,
-  });
-
-  await ssg.plan.schoolYear.prefetch({
-    start: parseInt(query.start),
-    end: parseInt(query.end),
-  });
-
   return {
     props: {
-      trpcState: ssg.dehydrate(),
+      trpcState: prefetchTrpcQueries(context, async (ssg) => {
+        await ssg.plan.schoolYear.prefetch({
+          start: parseInt(query.start!),
+          end: parseInt(query.end!),
+        });
+      }),
       ...(await i18nGetServerSideProps(context, ["pages/plans/index", "user/common"])),
     },
   };
