@@ -13,7 +13,7 @@ const createProxySSGHelpers = async (context: GetServerSidePropsContext) =>
     transformer: superjson,
   });
 
-export const prefetchTrpcQueries = async (context: GetServerSidePropsContext, callback?: (ssg: Awaited<ReturnType<typeof createProxySSGHelpers>>) => Promise<void>, prefetchUser: boolean = true) => {
+export const prefetchTrpcQueries = async (context: GetServerSidePropsContext, callback?: (ssg: Awaited<ReturnType<typeof createProxySSGHelpers>>) => Promise<void>, prefetchUser = true) => {
   const ssg = createProxySSGHelpersTrpc({
     router: appRouter,
     ctx: await createContext({
