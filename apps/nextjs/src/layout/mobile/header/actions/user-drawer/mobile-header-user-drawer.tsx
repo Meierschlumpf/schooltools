@@ -1,4 +1,4 @@
-import { ActionIcon, Divider, Drawer, Group, ScrollArea, Stack, Text, Title } from "@mantine/core";
+import { ActionIcon, Divider, Drawer, Group, ScrollArea, Stack, Text, Title, useMantineColorScheme } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconArrowLeft, IconBell, IconCode, IconInfoCircle, IconKey, IconLanguage, IconLogout, IconPalette, IconPencil, IconQuestionCircle } from "@tabler/icons";
 import { signOut } from "next-auth/react";
@@ -18,6 +18,7 @@ export const MobileHeaderUserDrawer = ({ opened, closeDrawer }: MobileHeaderUser
   const { t, i18n } = useTranslation("layout/header/profile/common");
   const [languageDrawerOpened, languageDrawer] = useDisclosure(false);
   const { data: user } = trpc.user.me.useQuery();
+  const { toggleColorScheme, colorScheme } = useMantineColorScheme();
 
   return (
     <Drawer
@@ -68,7 +69,12 @@ export const MobileHeaderUserDrawer = ({ opened, closeDrawer }: MobileHeaderUser
               onClick={languageDrawer.open}
             />
             <LanguageDrawer opened={languageDrawerOpened} closeDrawer={languageDrawer.close} />
-            <UserDrawerButton icon={IconPalette} label={t("section.app-settings.items.appearance.label")} activeValue={t("section.app-settings.items.appearance.activeValue.dark")} />
+            <UserDrawerButton
+              icon={IconPalette}
+              label={t("section.app-settings.items.appearance.label")}
+              activeValue={t(`section.app-settings.items.appearance.activeValue.${colorScheme}`)}
+              onClick={toggleColorScheme}
+            />
             <UserDrawerButton icon={IconPencil} label={t("section.app-settings.items.profile.label")} />
             <UserDrawerButton icon={IconKey} label={t("section.app-settings.items.privacy.label")} />
             <UserDrawerButton icon={IconBell} label={t("section.app-settings.items.notification.label")} />

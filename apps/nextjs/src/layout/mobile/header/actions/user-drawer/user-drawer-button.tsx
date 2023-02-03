@@ -19,7 +19,7 @@ export const UserDrawerButton = ({ icon: Icon, label, onClick, activeValue, show
           <Icon stroke={1.5} color={colors.gray[6]} />
         </ThemeIcon>
         <Group style={{ flex: 1 }} position="apart">
-          <Text color="white">{label}</Text>
+          <Text>{label}</Text>
           <Group>
             <Text color="dimmed" size="sm">
               {activeValue}
