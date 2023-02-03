@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { useCreatePlanModal } from "../../components/plan/create-modal";
 import { i18nGetServerSideProps } from "../../helpers/i18nGetServerSidePropsMiddleware";
+import { withRoleCheck } from "../../helpers/serverSidePropsMiddleware";
 
 const Page = () => {
   const { t } = useTranslation();
@@ -20,10 +21,10 @@ const Page = () => {
 
 export default Page;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = withRoleCheck(["Teacher", "Admin"], async (context) => {
   return {
     props: {
       ...(await i18nGetServerSideProps(context, ["plan/common"])),
     },
   };
-};
+});
