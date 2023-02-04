@@ -41,8 +41,6 @@ const queryParamSchema = z.object({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query as QueryType;
 
-  console.log(query);
-
   if (!query.year || !query.season || !queryParamSchema.safeParse(query).success)
     return {
       notFound: true,
