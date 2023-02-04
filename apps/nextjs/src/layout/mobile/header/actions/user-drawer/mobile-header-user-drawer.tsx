@@ -19,7 +19,6 @@ export const MobileHeaderUserDrawer = ({ opened, closeDrawer }: MobileHeaderUser
   const [languageDrawerOpened, languageDrawer] = useDisclosure(false);
   const { data: user } = trpc.user.me.useQuery();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
-  console.log(colorScheme);
 
   return (
     <Drawer
