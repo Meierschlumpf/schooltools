@@ -85,6 +85,8 @@ model Plan {
     lessons            Lesson[]
     semesterId         String
     semester           Semester @relation(fields: [semesterId], references: [id])
+    subjectId          String?
+    subject            Subject? @relation(fields: [subjectId], references: [id])
 }
 
 model Semester {
@@ -92,4 +94,12 @@ model Semester {
     start DateTime
     end   DateTime
     plans Plan[]
+}
+
+model Subject {
+    id          String @id @default(cuid())
+    displayName String @db.Text()
+    routeName   String @db.Text()
+    icon        String @db.Text()
+    plans       Plan[]
 }
