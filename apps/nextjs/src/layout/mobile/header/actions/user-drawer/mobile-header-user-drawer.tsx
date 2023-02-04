@@ -19,6 +19,7 @@ export const MobileHeaderUserDrawer = ({ opened, closeDrawer }: MobileHeaderUser
   const [languageDrawerOpened, languageDrawer] = useDisclosure(false);
   const { data: user } = trpc.user.me.useQuery();
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
+  console.log(colorScheme);
 
   return (
     <Drawer
@@ -73,7 +74,7 @@ export const MobileHeaderUserDrawer = ({ opened, closeDrawer }: MobileHeaderUser
               icon={IconPalette}
               label={t("section.app-settings.items.appearance.label")}
               activeValue={t(`section.app-settings.items.appearance.activeValue.${colorScheme}`)}
-              onClick={toggleColorScheme}
+              onClick={() => toggleColorScheme()}
             />
             <UserDrawerButton icon={IconPencil} label={t("section.app-settings.items.profile.label")} />
             <UserDrawerButton icon={IconKey} label={t("section.app-settings.items.privacy.label")} />
